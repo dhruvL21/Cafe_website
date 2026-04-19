@@ -45,55 +45,76 @@ const SlideToUnlock = () => {
         className="relative w-full h-16 rounded-full bg-[#14181c] flex items-center justify-center text-white/50 border border-white/10 shadow-inner"
       >
         <motion.div
-          className="absolute left-2 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center cursor-grab active:cursor-grabbing"
+          className="absolute left-2 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center cursor-grab active:cursor-grabbing z-10"
           drag="x"
           dragConstraints={{ left: 0, right: dragAreaWidth > 0 ? dragAreaWidth : 0 }}
           dragElastic={0.1}
           onDragStart={() => setIsDragging(true)}
           onDragEnd={handleDragEnd}
-          animate={{
-            x: unlocked && dragAreaWidth > 0 ? dragAreaWidth : 0,
-            opacity: unlocked ? 0 : 1,
-          }}
-          transition={{ type: 'spring', stiffness: 300, damping: 25, mass: 0.5 }}
+          animate={
+            unlocked 
+              ? { x: dragAreaWidth, opacity: 0 } 
+              : isDragging 
+                ? {} 
+                : { 
+                    x: [0, 15, 0],
+                  }
+          }
+          transition={
+            isDragging 
+              ? { type: 'spring', stiffness: 300, damping: 25 } 
+              : { 
+                  duration: 2, 
+                  repeat: Infinity, 
+                  repeatDelay: 2,
+                  ease: "easeInOut"
+                }
+          }
         >
           <Coffee className="text-white" size={24} />
+          {/* Subtle glow effect behind the handle */}
+          {!isDragging && !unlocked && (
+            <motion.div 
+              className="absolute inset-0 rounded-full bg-white/20 -z-10"
+              animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0, 0.5] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+          )}
         </motion.div>
         
-        <motion.span
-          className="tracking-[0.2em] text-[11px] sm:text-xs font-medium whitespace-nowrap px-4"
-          animate={{ opacity: isDragging ? 0 : [1, 0.5, 1] }}
-          transition={{ 
-            opacity: {
-              duration: 2,
-              repeat: Infinity,
-              ease: 'easeInOut'
-            }
-           }}
-        >
-          REVEAL SPECIALS
-        </motion.span>
+        <div className="relative overflow-hidden px-12 text-center pointer-events-none">
+          <motion.span
+            className="tracking-[0.2em] text-[11px] sm:text-xs font-medium whitespace-nowrap bg-gradient-to-r from-white/20 via-white to-white/20 bg-[length:200%_100%] bg-clip-text text-transparent"
+            animate={{ 
+              backgroundPosition: ['100% 0', '-100% 0'],
+              opacity: isDragging ? 0 : 1 
+            }}
+            transition={{ 
+              backgroundPosition: {
+                duration: 3,
+                repeat: Infinity,
+                ease: 'linear'
+              },
+              opacity: { duration: 0.2 }
+            }}
+          >
+            REVEAL SPECIALS
+          </motion.span>
+        </div>
         
         <motion.div
           className="absolute right-4"
           animate={{
-            x: [0, 5, 0, 5, 0],
-            opacity: isDragging ? 0 : [0.5, 1, 0.5, 1, 0.5],
+            x: isDragging ? 10 : [0, 5, 0],
+            opacity: isDragging ? 0 : [0.3, 1, 0.3],
           }}
           transition={{
-            x: {
-              repeat: Infinity,
-              duration: 1.5,
-              ease: 'easeInOut',
-            },
-            opacity: {
-              repeat: Infinity,
-              duration: 1.5,
-              ease: 'linear',
-            }
+            repeat: Infinity,
+            duration: 1.5,
+            ease: 'easeInOut',
           }}
         >
-          <ArrowRight size={20} />
+          <ArrowRight size={20} className="text-white/50" />
         </motion.div>
       </div>
     </div>
