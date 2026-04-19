@@ -60,9 +60,12 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [loading, setLoading] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [isIphone, setIsIphone] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
+    // Detect iPhone/iPad/iPod
+    setIsIphone(/iPhone|iPad|iPod/i.test(navigator.userAgent));
   }, []);
 
   useEffect(() => {
@@ -83,7 +86,19 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
         <link href="https://fonts.googleapis.com/css2?family=Bonheur+Royale&family=Meie+Script&family=Sirivennela&display=swap" rel="stylesheet" />
       </head>
       <body
-        className={`${urbanist.variable} ${playfair.variable} ${rochester.variable} ${splash.variable} ${limelight.variable} ${suravaram.variable} ${belleza.variable} ${kranky.variable} ${poiretOne.variable} font-sans`}
+        className={cn(
+          urbanist.variable,
+          playfair.variable,
+          rochester.variable,
+          splash.variable,
+          limelight.variable,
+          suravaram.variable,
+          belleza.variable,
+          kranky.variable,
+          poiretOne.variable,
+          'font-sans transition-colors duration-500',
+          isIphone && 'is-iphone'
+        )}
       >
         <div className={cn(`relative flex min-h-screen flex-col transition-opacity duration-500 bg-background`, loading ? 'opacity-0' : 'opacity-100')}>
         <Header />

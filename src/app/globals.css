@@ -126,6 +126,24 @@
     transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
     cursor: default;
   }
+  
+  /* Targeted Background for iPhone/iOS only */
+  body.is-iphone::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/iphone-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -10;
+    opacity: 0.1; /* High transparency for a subtle "watermark" feel */
+    pointer-events: none;
+    filter: invert(1); /* Assuming white bg/black lines, this makes them light/transparent on dark bg */
+  }
 }
 
 @layer utilities {
