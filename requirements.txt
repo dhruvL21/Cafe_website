@@ -1,0 +1,13 @@
+# Environment Requirements
+
+This file specifies the recommended versions of the tools required to create a consistent development environment for this project.
+
+# Node.js
+# We recommend using a Node.js version in the 20.x range.
+# You can use a version manager like `nvm` to switch between versions.
+# https://github.com/nvm-sh/nvm
+node=v20
+
+# npm (Node Package Manager)
+# This version typically comes bundled with the recommended Node.js version.
+npm=v10

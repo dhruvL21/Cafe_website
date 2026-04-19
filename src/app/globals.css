@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 210 20% 90%;
+    --card: 216 34% 15%;
+    --card-foreground: 210 20% 90%;
+    --popover: 216 34% 12%;
+    --popover-foreground: 210 20% 90%;
+    --primary: 210 20% 80%;
+    --primary-foreground: 216 34% 10%;
+    --secondary: 216 34% 20%;
+    --secondary-foreground: 210 20% 90%;
+    --muted: 216 34% 25%;
+    --muted-foreground: 210 20% 65%;
+    --accent: 216 34% 22%;
+    --accent-foreground: 210 20% 90%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 216 34% 25%;
+    --input: 216 34% 25%;
+    --ring: 210 20% 80%;
+    --chart-1: 214 32% 43%;
+    --chart-2: 215 30% 53%;
+    --chart-3: 216 28% 63%;
+    --chart-4: 217 26% 73%;
+    --chart-5: 218 24% 83%;
+    --radius: 1.5rem;
+    --sidebar-background: 216 34% 10%;
+    --sidebar-foreground: 210 20% 98%;
+    --sidebar-primary: 210 20% 80%;
+    --sidebar-primary-foreground: 216 34% 10%;
+    --sidebar-accent: 216 34% 20%;
+    --sidebar-accent-foreground: 210 20% 98%;
+    --sidebar-border: 216 34% 20%;
+    --sidebar-ring: 210 20% 80%;
+    --menu-bg: 150 30% 20%;
+    --menu-text: 35 33% 88%;
+  }
+  .dark {
+    --background: 0 0% 0%;
+    --foreground: 210 20% 90%;
+    --card: 216 34% 15%;
+    --card-foreground: 210 20% 90%;
+    --popover: 216 34% 12%;
+    --popover-foreground: 210 20% 90%;
+    --primary: 210 20% 80%;
+    --primary-foreground: 216 34% 10%;
+    --secondary: 216 34% 20%;
+    --secondary-foreground: 210 20% 90%;
+    --muted: 216 34% 25%;
+    --muted-foreground: 210 20% 65%;
+    --accent: 216 34% 22%;
+    --accent-foreground: 210 20% 90%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 216 34% 25%;
+    --input: 216 34% 25%;
+    --ring: 210 20% 80%;
+    --chart-1: 214 32% 43%;
+    --chart-2: 215 30% 53%;
+    --chart-3: 216 28% 63%;
+    --chart-4: 217 26% 73%;
+    --chart-5: 218 24% 83%;
+    --sidebar-background: 216 34% 10%;
+    --sidebar-foreground: 210 20% 98%;
+    --sidebar-primary: 210 20% 80%;
+    --sidebar-primary-foreground: 216 34% 10%;
+    --sidebar-accent: 216 34% 20%;
+    --sidebar-accent-foreground: 210 20% 98%;
+    --sidebar-border: 216 34% 20%;
+    --sidebar-ring: 210 20% 80%;
+    --menu-bg: 150 30% 20%;
+    --menu-text: 35 33% 88%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  .homepage-bg {
+    background-image: url('/new_mob_hp.png');
+    background-size: cover;
+    background-position: center 80%;
+    background-attachment: fixed;
+  }
+  @media (min-width: 768px) {
+    .homepage-bg {
+      background-image: url('/desk_homepage.png?v=3');
+      background-position: right center;
+    }
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-headline;
+  }
+  .sirivennela-regular {
+    font-family: "Sirivennela", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  .meie-script-regular {
+    font-family: "Meie Script", cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+  .bonheur-royale-regular {
+    font-family: "Bonheur Royale", cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+  .bubble-text {
+    display: inline-block;
+    color: hsl(var(--muted-foreground));
+    transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    cursor: default;
+  }
+}
+
+@layer utilities {
+    .text-gradient-hover {
+        @apply text-transparent bg-clip-text bg-gradient-to-r from-muted-foreground to-muted-foreground transition-all duration-300;
+    }
+    .text-gradient-hover:hover {
+        @apply from-foreground to-primary;
+    }
+
+    #smoke .smoke-element {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        margin-left: -50vw;
+        height: 1px;
+        width: 100vw;
+        background: #fff;
+        border-radius: 200px / 40px;
+        filter: blur(15px);
+        animation: smoke-drift 50s linear infinite;
+        opacity: 0;
+    }
+
+    @keyframes smoke-drift {
+        0% {
+            transform: translateY(0) scale(1);
+            opacity: 0;
+        }
+        10% {
+            opacity: 0.1;
+        }
+        50% {
+            transform: translateY(-200px) scale(4);
+            opacity: 0.2;
+        }
+        90% {
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(-400px) scale(6);
+            opacity: 0;
+        }
+    }
+
+    @keyframes glow {
+        0%, 100% {
+          box-shadow: 0 0 5px theme('colors.white/0.5'), 0 0 10px theme('colors.white/0.3');
+        }
+        50% {
+          box-shadow: 0 0 15px theme('colors.white/0.8'), 0 0 25px theme('colors.white/0.5');
+        }
+      }
+  
+      .animate-glow {
+        animation: glow 2.5s ease-in-out infinite;
+      }
+
+    #smoke .smoke-element:nth-child(1) { animation-delay: 0s; }
+    #smoke .smoke-element:nth-child(2) { animation-delay: 4s; }
+    #smoke .smoke-element:nth-child(3) { animation-delay: 8s; }
+    #smoke .smoke-element:nth-child(4) { animation-delay: 12s; }
+    #smoke .smoke-element:nth-child(5) { animation-delay: 16s; }
+    #smoke .smoke-element:nth-child(6) { animation-delay: 20s; }
+    #smoke .smoke-element:nth-child(7) { animation-delay: 24s; }
+    #smoke .smoke-element:nth-child(8) { animation-delay: 28s; }
+    #smoke .smoke-element:nth-child(9) { animation-delay: 32s; }
+    #smoke .smoke-element:nth-child(10) { animation-delay: 36s; }
+    #smoke .smoke-element:nth-child(11) { animation-delay: 40s; }
+    #smoke .smoke-element:nth-child(12) { animation-delay: 44s; }
+}

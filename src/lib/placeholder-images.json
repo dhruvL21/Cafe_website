@@ -1,0 +1,376 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero-cafe-interior",
+      "description": "A beautiful, sunlit interior of a modern and cozy cafe.",
+      "imageUrl": "https://images.unsplash.com/photo-1567880905822-56f8e06fe630?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjYWZlJTIwaW50ZXJpb3J8ZW58MHx8fHwxNzY2ODg4MTQyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cafe interior"
+    },
+    {
+      "id": "about-us-image",
+      "description": "A barista carefully preparing a cup of coffee with latte art.",
+      "imageUrl": "https://images.unsplash.com/photo-1559496417-e7f25cb247f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHxiYXJpc3RhJTIwbGF0dGUlMjBhcnR8ZW58MHx8fHwxNzY3MjgxNTkyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "barista latte"
+    },
+    {
+      "id": "virtual-tour-bg",
+      "description": "Abstract low-poly background for virtual tour.",
+      "imageUrl": "https://images.unsplash.com/photo-1476445704028-a36e0c798192?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhYnN0cmFjdCUyMGdlb21ldHJpY3xlbnwwfHx8fDE3NjY5NDgyNjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract geometric"
+    },
+    {
+      "id": "tom-yum-goong",
+      "description": "A delicious bowl of pasta.",
+      "imageUrl": "/pasta.png",
+      "imageHint": "pasta"
+    },
+    {
+      "id": "pad-thai",
+      "description": "A delicious plate of pasta.",
+      "imageUrl": "/pasta.png",
+      "imageHint": "pasta"
+    },
+    {
+      "id": "pizza",
+      "description": "A delicious pizza.",
+      "imageUrl": "/pizza.png",
+      "imageHint": "pizza"
+    },
+    {
+      "id": "pizza-margherita",
+      "description": "A classic Margherita pizza on a wooden board.",
+      "imageUrl": "/margherita.png",
+      "imageHint": "pizza"
+    },
+    {
+      "id": "pasta-carbonara",
+      "description": "A plate of creamy spaghetti carbonara.",
+      "imageUrl": "/spaghetti_carbonara.png",
+      "imageHint": "pasta"
+    },
+    {
+      "id": "iced-latte",
+      "description": "A refreshing iced latte in a tall glass.",
+      "imageUrl": "/iced_latte.png",
+      "imageHint": "iced latte"
+    },
+    {
+      "id": "cheesecake-slice",
+      "description": "A slice of New York cheesecake with strawberry topping on a plate.",
+      "imageUrl": "/cheesecake.png",
+      "imageHint": "cheesecake slice"
+    },
+    {
+      "id": "creamy-soup-parsley",
+      "description": "A bowl of creamy soup topped with fresh parsley.",
+      "imageUrl": "https://images.unsplash.com/photo-1763186711126-0d14b85d8e7f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y3JlYW15JTIwc291cHxlbnwwfHx8fDE3NjcwMzgwNTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "creamy soup"
+    },
+    {
+      "id": "spaghetti-bolognese",
+      "description": "A plate of spaghetti with a rich bolognese sauce.",
+      "imageUrl": "https://images.unsplash.com/photo-1692071097529-320eb2b32292?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8c3BhZ2hldHRpJTIwYm9sb2duZXNlfGVufDB8fHx8MTc2NzAxOTc1MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "spaghetti bolognese"
+    },
+    {
+      "id": "egg-casserole",
+      "description": "A baked egg casserole in a small pan.",
+      "imageUrl": "https://images.unsplash.com/photo-1603966926902-57b0cb2abe2a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxlZ2clMjBjYXNzZXJvbGV8ZW58MHx8fHwxNzY3MDM4MDU3fMA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "egg casserole"
+    },
+    {
+      "id": "hearty-beef-stew",
+      "description": "A close-up of a hearty beef stew with pasta.",
+      "imageUrl": "https://images.unsplash.com/photo-1664741662725-bd131742b7b7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxiZWVmJTIwc3Rld3xlbnwwfHx8fDE3NjY5OTE1NjF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "beef stew"
+    },
+    {
+      "id": "fresh-summer-salad",
+      "description": "A fresh salad with cherry tomatoes and other vegetables.",
+      "imageUrl": "https://images.unsplash.com/photo-1523986371872-9d3ba2e2a389?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzdW1tZXIlMjBzYWxhZHxlbnwwfHx8fDE3NjY5NDg1MTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "summer salad"
+    },
+    {
+      "id": "pasta-carbonara-bowl",
+      "description": "A bowl of authentic spaghetti carbonara with pancetta.",
+      "imageUrl": "/spaghetti_carbonara.png",
+      "imageHint": "pasta carbonara"
+    },
+    {
+      "id": "fettuccine-alfredo",
+      "description": "Creamy fettuccine alfredo in a white bowl.",
+      "imageUrl": "/fettuccine_alfredo.png",
+      "imageHint": "fettuccine alfredo"
+    },
+    {
+      "id": "pesto-penne",
+      "description": "Penne pasta with fresh basil pesto and cherry tomatoes.",
+      "imageUrl": "/pesto_penne.png",
+      "imageHint": "pesto pasta"
+    },
+    {
+      "id": "margherita-pizza-classic",
+      "description": "A classic margherita pizza with fresh basil on a wooden board.",
+      "imageUrl": "/margherita.png",
+      "imageHint": "margherita pizza"
+    },
+    {
+      "id": "spicy-pepperoni-pizza",
+      "description": "A pepperoni pizza with a spicy kick and fresh basil.",
+      "imageUrl": "/spicy_pepperoni.png",
+      "imageHint": "pepperoni pizza"
+    },
+    {
+      "id": "mushroom-truffle-pizza",
+      "description": "A gourmet pizza with wild mushrooms and truffle oil.",
+      "imageUrl": "/mush_truff.png",
+      "imageHint": "mushroom pizza"
+    },
+    {
+      "id": "classic-tiramisu",
+      "description": "A slice of classic tiramisu on a white plate.",
+      "imageUrl": "/tiramisu.png",
+      "imageHint": "tiramisu dessert"
+    },
+    {
+      "id": "chocolate-lava-cake",
+      "description": "A warm chocolate lava cake with a molten center.",
+      "imageUrl": "/chocolate_lava_cake.png",
+      "imageHint": "lava cake"
+    },
+    {
+      "id": "panna-cotta-dessert",
+      "description": "Silky panna cotta with a berry coulis and fresh mint.",
+      "imageUrl": "/panna_cotta.png",
+      "imageHint": "panna cotta"
+    },
+    {
+      "id": "gallery-coffee-art",
+      "description": "A barista creating beautiful latte art.",
+      "imageUrl": "https://images.unsplash.com/photo-1681838853984-697bbb001257?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxsYXR0ZSUyMGFydHxlbnwwfHx8fDE3NjcwOTEwMjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "latte art"
+    },
+    {
+      "id": "gallery-cafe-ambience",
+      "description": "The warm and inviting interior of the cafe at dusk.",
+      "imageUrl": "https://images.unsplash.com/photo-1655655097464-247f8c9a3dac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y2FmZSUyMGFtYmllbmNlfGVufDB8fHx8MTc2NzE4Nzk1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cafe ambience"
+    },
+    {
+      "id": "gallery-fresh-croissants",
+      "description": "A close-up of freshly baked, flaky croissants on a tray.",
+      "imageUrl": "https://images.unsplash.com/photo-1709798288301-719572ca8e98?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxmcmVzaCUyMGNyb2lzc2FudHN8ZW58MHx8fHwxNzY3MTg3OTU2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fresh croissants"
+    },
+    {
+      "id": "gallery-friends-chatting",
+      "description": "Friends enjoying coffee and conversation at a table.",
+      "imageUrl": "https://images.unsplash.com/photo-1568992687947-868a62a9f521?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwZW9wbGUlMjB0YWxraW5nfGVufDB8fHx8MTc2NzE4Nzk1NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "people talking"
+    },
+    {
+      "id": "gallery-espresso-shot",
+      "description": "A perfect shot of espresso being pulled from the machine.",
+      "imageUrl": "https://images.unsplash.com/photo-1646257861487-60fa89bef25f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZXNwcmVzc28lMjBzaG90fGVufDB8fHx8MTc2NzExODg0NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "espresso shot"
+    },
+    {
+      "id": "gallery-outdoor-seating",
+      "description": "The sunny outdoor seating area of the cafe.",
+      "imageUrl": "https://images.unsplash.com/photo-1554181167-9cb58ddcc56c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxvdXRkb29yJTIwY2FmZXxlbnwwfHx8fDE3NjcxODc5NTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "outdoor cafe"
+    },
+    {
+      "id": "gallery-cake-display",
+      "description": "A beautiful display of various cakes and pastries.",
+      "imageUrl": "https://images.unsplash.com/photo-1707269561538-a6622ac68149?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjYWtlJTIwZGlzcGxheXxlbnwwfHx8fDE3NjcxODc5NTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cake display"
+    },
+    {
+      "id": "gallery-reading-nook",
+      "description": "A customer reading a book in a cozy corner of the cafe.",
+      "imageUrl": "https://images.unsplash.com/photo-1603284569248-821525309698?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxyZWFkaW5nJTIwYm9va3xlbnwwfHx8fDE3NjcxMTY0MDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "reading book"
+    },
+    {
+      "id": "gallery-coffee-beans-roasting",
+      "description": "Coffee beans being roasted in a large machine.",
+      "imageUrl": "https://images.unsplash.com/photo-1573628684836-5559b4c43f3b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjb2ZmZWUlMjByb2FzdGluZ3xlbnwwfHx8fDE3NjcxMDY2NzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "coffee roasting"
+    },
+    {
+      "id": "gallery-iced-coffee-splash",
+      "description": "A dynamic shot of ice being dropped into a glass of coffee.",
+      "imageUrl": "https://images.unsplash.com/photo-1621221814951-fa755dd0c993?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxpY2VkJTIwY29mZmVlfGVufDB8fHx8MTc2NzEwNDkwMXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "iced coffee"
+    },
+    {
+      "id": "gallery-barista-portrait",
+      "description": "A smiling barista posing behind the counter.",
+      "imageUrl": "https://images.unsplash.com/photo-1559837541-4d1e6eb2bc59?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxiYXJpc3RhJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzY3MTg3OTU2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "barista portrait"
+    },
+    {
+      "id": "gallery-pastry-detail",
+      "description": "A detailed close-up of a raspberry tart.",
+      "imageUrl": "https://images.unsplash.com/photo-1611338087184-0489f4c06a1e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxyYXNwYmVycnklMjB0YXJ0fGVufDB8fHx8MTc2NzE4Nzk1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "raspberry tart"
+    },
+    {
+      "id": "gallery-morning-rush",
+      "description": "A bustling morning scene inside the cafe.",
+      "imageUrl": "https://images.unsplash.com/photo-1703641000252-f7d0e18c7eb8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxidXN5JTIwY2FmZXxlbnwwfHx8fDE3NjcxODc5NTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "busy cafe"
+    },
+    {
+      "id": "gallery-window-view",
+      "description": "The view from the cafe window on a rainy day.",
+      "imageUrl": "https://images.unsplash.com/photo-1631816591249-ba33dde81a23?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cmFpbnklMjBkYXl8ZW58MHx8fHwxNzY3MDk0MDU3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "rainy day"
+    },
+    {
+      "id": "gallery-coffee-bags",
+      "description": "Branded bags of coffee beans ready for sale.",
+      "imageUrl": "https://images.unsplash.com/photo-1626379907480-29d844d603ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjb2ZmZWUlMjBiYWdzfGVufDB8fHx8MTc2NzE4Nzk1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "coffee bags"
+    },
+    {
+      "id": "gallery-community-board",
+      "description": "A community board filled with local flyers and notes.",
+      "imageUrl": "https://images.unsplash.com/photo-1741636174546-0d8c52a5aa00?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y29tbXVuaXR5JTIwYm9hcmR8ZW58MHx8fHwxNzY3MTg3OTU2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "community board"
+    },
+    {
+      "id": "gallery-latte-and-book",
+      "description": "A flat lay of a latte, a book, and glasses on a table.",
+      "imageUrl": "https://images.unsplash.com/photo-1519682577862-22b62b24e493?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjb2ZmZWUlMjBib29rfGVufDB8fHx8MTc2NzE2OTUxNnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "coffee book"
+    },
+    {
+      "id": "gallery-cafe-exterior",
+      "description": "The exterior of the cafe building in the evening.",
+      "imageUrl": "https://images.unsplash.com/photo-1690245889220-60f02ac39790?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjYWZlJTIwZXh0ZXJpb3J8ZW58MHx8fHwxNzY3MTQwOTk3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cafe exterior"
+    },
+    {
+      "id": "gallery-matcha-latte",
+      "description": "A vibrant green matcha latte being prepared.",
+      "imageUrl": "https://images.unsplash.com/photo-1717398804998-ad2d48822518?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxtYXRjaGElMjBsYXR0ZXxlbnwwfHx8fDE3NjcxMjQzNTF8MA&ixlibrb-4.1.0&q=80&w=1080",
+      "imageHint": "matcha latte"
+    },
+    {
+      "id": "gallery-happy-customer",
+      "description": "A happy customer smiling while holding their coffee.",
+      "imageUrl": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxoYXBweSUyMGN1c3RvbWVyfGVufDB8fHx8MTc2NzExMjkwMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "happy customer"
+    },
+    {
+      "id": "flat-white-coffee",
+      "description": "A flat white coffee in a ceramic cup.",
+      "imageUrl": "/flat_white.png",
+      "imageHint": "flat white"
+    },
+    {
+      "id": "latte-art-cup",
+      "description": "A cup of latte with beautiful foam art.",
+      "imageUrl": "/latte.png",
+      "imageHint": "latte art"
+    },
+    {
+      "id": "cappuccino-cup",
+      "description": "A classic cappuccino in a white cup.",
+      "imageUrl": "/cappuccino.png",
+      "imageHint": "cappuccino"
+    },
+    {
+      "id": "americano-coffee",
+      "description": "A cup of black Americano coffee.",
+      "imageUrl": "/americano.png",
+      "imageHint": "americano"
+    },
+    {
+      "id": "espresso-shot-dark",
+      "description": "A single shot of espresso in a small cup, with a dark, moody feel.",
+      "imageUrl": "/espresso.png",
+      "imageHint": "espresso shot"
+    },
+    {
+      "id": "macchiato-glass",
+      "description": "A macchiato in a clear glass.",
+      "imageUrl": "/macchiato.png?v=2",
+      "imageHint": "macchiato"
+    },
+    {
+      "id": "mocha-coffee",
+      "description": "A delicious mocha coffee with whipped cream.",
+      "imageUrl": "/mocha.png",
+      "imageHint": "mocha coffee"
+    },
+    {
+      "id": "flavored-latte",
+      "description": "A flavored latte with syrup.",
+      "imageUrl": "/flavored_latte.png",
+      "imageHint": "flavored latte"
+    },
+    {
+      "id": "lasagna-casserole",
+      "description": "A hearty slice of beef lasagna in a casserole dish.",
+      "imageUrl": "https://images.unsplash.com/photo-1586197145810-2917fcb8ed11?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxsYXNhZ25hJTIwZGlzaHxlbnwwfHx8fDE3Njk0NTUxMTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "lasagna dish"
+    },
+    {
+      "id": "ravioli-sage-butter",
+      "description": "Spinach and ricotta ravioli with a sage butter sauce.",
+      "imageUrl": "https://images.unsplash.com/photo-1733700469181-fc8edf9af33f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxyYXZpb2xpJTIwZGlzaHxlbnwwfHx8fDE3Njk0NTUxMTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ravioli dish"
+    },
+    {
+      "id": "prosciutto-arugula-pizza",
+      "description": "Pizza topped with prosciutto, arugula, and shaved parmesan.",
+      "imageUrl": "https://images.unsplash.com/photo-1763683944575-0cf4358bbb50?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cHJvc2NpdXR0byUyMHBpenphfGVufDB8fHx8MTc2OTM2NjM5OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "prosciutto pizza"
+    },
+    {
+      "id": "quattro-formaggi-pizza",
+      "description": "A pizza with four different types of cheese.",
+      "imageUrl": "https://images.unsplash.com/photo-1551462147-37885acc36f1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxmb3VyJTIwY2hlZXNlfGVufDB8fHx8MTc2OTQ1NTExN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "four cheese"
+    },
+    {
+      "id": "cheesecake-berry",
+      "description": "A slice of creamy cheesecake topped with mixed berry compote.",
+      "imageUrl": "https://images.unsplash.com/photo-1707528903686-91cbbe2f2985?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjaGVlc2VjYWtlJTIwc2xpY2V8ZW58MHx8fHwxNzY5NDQ2MTE3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cheesecake slice"
+    },
+    {
+      "id": "cannoli-dessert",
+      "description": "Crispy cannoli shells filled with sweet ricotta cream.",
+      "imageUrl": "https://images.unsplash.com/photo-1600835768553-0cc19062f912?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjYW5ub2xpJTIwZGVzc2VydHxlbnwwfHx8fDE3Njk0NTUxMTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cannoli dessert"
+    },
+    {
+      "id": "cold-brew-coffee",
+      "description": "A glass of cold brew coffee with ice.",
+      "imageUrl": "https://images.unsplash.com/photo-1599159516672-d595a435c245?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjb2xkYnJld3xlbnwwfHx8fDE3Njk0NTkwMjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cold brew"
+    },
+    {
+      "id": "aglio-e-olio-pasta",
+      "description": "A plate of spaghetti aglio e olio.",
+      "imageUrl": "https://images.unsplash.com/photo-1629813133866-e7a9b0a6c6b3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxhZ2xpbyUyMG9saW98ZW58MHx8fHwxNzY5NDU5MTEyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "spaghetti aglio"
+    },
+    {
+      "id": "hawaiian-pizza",
+      "description": "A hawaiian pizza with ham and pineapple.",
+      "imageUrl": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxoYXdhaWlhbiUyMHBpenphfGVufDB8fHx8fDE3Njk0NTkxODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "hawaiian pizza"
+    },
+    {
+      "id": "affogato-dessert",
+      "description": "An affogato dessert in a glass.",
+      "imageUrl": "https://images.unsplash.com/photo-1588665313936-092d665fb6ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxhZmZvZ2F0b3xlbnwwfHx8fDE3Njk0NTkyMTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "affogato dessert"
+    }
+  ]
+}
