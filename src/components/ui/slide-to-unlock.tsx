@@ -33,7 +33,7 @@ const SlideToUnlock = () => {
     if (dragAreaWidth > 0 && info.offset.x > dragAreaWidth * 0.75) {
       setUnlocked(true);
       setTimeout(() => {
-        router.push('/menu');
+        router.push('/specials');
       }, 300);
     }
   };
@@ -61,7 +61,7 @@ const SlideToUnlock = () => {
         </motion.div>
         
         <motion.span
-          className="tracking-widest text-base"
+          className="tracking-[0.2em] text-[11px] sm:text-xs font-medium whitespace-nowrap px-4"
           animate={{ opacity: isDragging ? 0 : [1, 0.5, 1] }}
           transition={{ 
             opacity: {
@@ -71,7 +71,7 @@ const SlideToUnlock = () => {
             }
            }}
         >
-          MENU
+          REVEAL SPECIALS
         </motion.span>
         
         <motion.div
