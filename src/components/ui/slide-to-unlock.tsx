@@ -84,7 +84,7 @@ const SlideToUnlock = () => {
         
         <div className="relative overflow-hidden px-12 text-center pointer-events-none">
           <motion.span
-            className="tracking-[0.2em] text-[11px] sm:text-xs font-medium whitespace-nowrap bg-gradient-to-r from-white/20 via-white to-white/20 bg-[length:200%_100%] bg-clip-text text-transparent"
+            className="tracking-[0.15em] text-sm sm:text-base font-bold whitespace-nowrap bg-gradient-to-r from-white/20 via-white to-white/20 bg-[length:200%_100%] bg-clip-text text-transparent uppercase"
             animate={{ 
               backgroundPosition: ['100% 0', '-100% 0'],
               opacity: isDragging ? 0 : 1 
