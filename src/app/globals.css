@@ -97,6 +97,9 @@
       background-position: right center;
     }
   }
+  .is-iphone .homepage-bg {
+    background-image: url('/iphone-bg.png');
+  }
   h1,
   h2,
   h3,
