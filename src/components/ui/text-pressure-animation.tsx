@@ -25,7 +25,7 @@ const debounce = (func: (...args: any[]) => void, delay: number) => {
 const TextPressureAnimation = ({
   text = 'Gallery',
   fontFamily = 'Compressa VF',
-  fontUrl = 'https://res.cloudinary.com/dr6lvwubh/raw/upload/v1529908256/CompressaPRO-GX.woff2',
+  fontUrl = '/fonts/CompressaPRO-GX.woff2',
   width = true,
   weight = true,
   italic = true,
@@ -149,8 +149,8 @@ const TextPressureAnimation = ({
 
           const d = dist(mouseRef.current, charCenter);
 
-          const wdth = width ? Math.floor(getAttr(d, maxDist, 5, 200)) : 100;
-          const wght = weight ? Math.floor(getAttr(d, maxDist, 100, 900)) : 400;
+          const wdth = width ? Math.floor(getAttr(d, maxDist, 100, 100)) : 100;
+          const wght = weight ? Math.floor(getAttr(d, maxDist, 300, 600)) : 400;
           const italVal = italic ? getAttr(d, maxDist, 0, 1).toFixed(2) : 0;
           const alphaVal = alpha ? getAttr(d, maxDist, 0, 1).toFixed(2) : '1';
 
