@@ -5,10 +5,10 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import {
   Coffee,
-  BookOpen,
-  Flame,
-  Camera,
-  Compass,
+  Utensils,
+  Sparkles,
+  Images,
+  MapPin,
   Menu,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -22,13 +22,13 @@ const getNavIcon = (iconName?: string) => {
     case 'home':
       return Coffee;
     case 'menu':
-      return BookOpen;
+      return Utensils;
     case 'specials':
-      return Flame;
+      return Sparkles;
     case 'gallery':
-      return Camera;
+      return Images;
     case 'location':
-      return Compass;
+      return MapPin;
     default:
       return Coffee;
   }
@@ -87,7 +87,7 @@ export default function Header() {
             transition={{ type: 'spring', stiffness: 450, damping: 32 }}
           />
         )}
-        <Icon strokeWidth={2.5} className={cn("w-4.5 h-4.5 md:w-5 md:h-5 relative z-10 transition-colors", isActive ? "text-primary" : "text-muted-foreground")} />
+        <Icon strokeWidth={2.2} className={cn("w-4.5 h-4.5 md:w-5 md:h-5 relative z-10 transition-colors", isActive ? "text-primary" : "text-muted-foreground")} />
         <motion.span
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.98 }}
@@ -104,23 +104,18 @@ export default function Header() {
       {/* Floating Pill Curved Navbar Container */}
       <div className="relative flex items-center justify-between px-5 py-3 md:px-7 md:py-3.5 rounded-full border border-white/15 bg-black/45 dark:bg-black/55 backdrop-blur-3xl shadow-2xl shadow-black/50 ring-1 ring-white/10">
         
-        {/* Desktop Navigation Layout: Left Links - Center Logo - Right Links */}
+        {/* Desktop Navigation Layout: Left Brand Name - Right Navigation Links */}
         <div className="hidden lg:flex items-center justify-between w-full">
-          {/* Left Side Links */}
-          <div className="flex items-center gap-1.5 md:gap-2 flex-1 justify-start">
-            {leftLinks.map(renderNavLink)}
-          </div>
-
-          {/* Center: Brand Logo */}
-          <Link href="/" className="flex items-center group px-4 md:px-6 flex-shrink-0">
+          {/* Left Side: Brand Name */}
+          <Link href="/" className="flex items-center group pl-2 flex-shrink-0">
             <span className="font-splash text-2xl md:text-3xl lg:text-4xl tracking-wider uppercase text-foreground group-hover:text-primary transition-colors text-center leading-none">
               Cup o’ Joy
             </span>
           </Link>
 
-          {/* Right Side Links */}
-          <div className="flex items-center gap-1.5 md:gap-2 flex-1 justify-end">
-            {rightLinks.map(renderNavLink)}
+          {/* Right Side: All Navigation Links */}
+          <div className="flex items-center gap-1.5 xl:gap-2.5">
+            {NAV_LINKS.map(renderNavLink)}
           </div>
         </div>
 
@@ -141,7 +136,7 @@ export default function Header() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] border-l border-white/15 bg-background/95 backdrop-blur-3xl p-6 rounded-l-3xl">
               <SheetHeader className="text-left pb-4 border-b border-white/15">
-                <SheetTitle className="flex items-center gap-2.5">
+                <SheetTitle className="flex items-center">
                   <span className="font-splash text-xl tracking-wider uppercase text-foreground">Cup o’ Joy</span>
                 </SheetTitle>
               </SheetHeader>

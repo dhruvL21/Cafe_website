@@ -235,10 +235,35 @@ export default function MenuPage() {
                 {/* MOBILE TOUCH SWIPE MENU BOOK VIEW */}
                 <div className="block md:hidden max-w-md mx-auto relative px-1">
                   
-                  {/* Minimal Page Counter Pill */}
-                  <div className="flex justify-center items-center gap-2 mb-4 text-xs font-sans tracking-widest uppercase font-bold text-primary/90 bg-white/5 border border-white/10 py-1.5 px-4 rounded-full w-fit mx-auto shadow-md select-none">
-                    <BookOpen className="w-3.5 h-3.5 text-primary" />
-                    <span>Page {mobilePageIndex + 1} of {mobilePages.length}</span>
+                  {/* Page Counter & Animated Swipe Guidance */}
+                  <div className="flex flex-col items-center gap-2 mb-4">
+                    {/* Minimal Page Counter Pill */}
+                    <div className="flex justify-center items-center gap-2 text-xs font-sans tracking-widest uppercase font-bold text-primary/90 bg-white/5 border border-white/10 py-1.5 px-4 rounded-full w-fit shadow-md select-none">
+                      <BookOpen className="w-3.5 h-3.5 text-primary" />
+                      <span>Page {mobilePageIndex + 1} of {mobilePages.length}</span>
+                    </div>
+
+                    {/* Animated Touch Swipe Indicator Badge */}
+                    <motion.div 
+                      initial={{ opacity: 0.8 }}
+                      animate={{ opacity: [0.7, 1, 0.7] }}
+                      transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
+                      className="flex items-center gap-2 text-[11px] font-sans tracking-wider uppercase font-semibold text-muted-foreground bg-primary/10 border border-primary/20 py-1 px-3.5 rounded-full shadow-sm select-none"
+                    >
+                      <motion.div 
+                        animate={{ x: [-3, 3, -3] }}
+                        transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
+                      >
+                        <ChevronLeft className="w-3.5 h-3.5 text-primary" />
+                      </motion.div>
+                      <span className="text-primary/90">Swipe left or right to turn page</span>
+                      <motion.div 
+                        animate={{ x: [3, -3, 3] }}
+                        transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
+                      >
+                        <ChevronRight className="w-3.5 h-3.5 text-primary" />
+                      </motion.div>
+                    </motion.div>
                   </div>
 
                   {/* Outer Hardcover Binder Frame */}
