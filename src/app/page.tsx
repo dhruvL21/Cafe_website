@@ -113,12 +113,15 @@ const HeroSection = () => {
             </div>
 
             <motion.div 
-              className="w-full max-w-[280px] sm:max-w-xs mt-8"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.8 }}
+              className="mt-6 flex flex-col items-start gap-3"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.7 }}
             >
-              <SlideToUnlock />
+              <div className="w-16 h-0.5 bg-gradient-to-r from-primary via-primary/60 to-transparent rounded-full"></div>
+              <p className="text-2xl lg:text-3xl font-normal text-primary/95 meie-script-regular tracking-wide max-w-xl leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+                Artisanal brews & handcrafted delicacies — where every sip is pure velvet and every bite, a luxury.
+              </p>
             </motion.div>
           </motion.div>
         </div>

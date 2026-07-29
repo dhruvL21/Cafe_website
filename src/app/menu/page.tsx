@@ -106,8 +106,20 @@ export default function MenuPage() {
       },
     ];
 
+    // Single Pages array for Mobile Touch Swipe View
+    const mobilePages = [
+      { title: 'Espresso & Coffees', items: coffeeItems.slice(0, 5), pageNum: 1, spreadIdx: 0 },
+      { title: 'Lattes & Cold Brews', items: coffeeItems.slice(5), pageNum: 2, spreadIdx: 0 },
+      { title: 'Artisanal Pastas', items: pastaItems, pageNum: 3, spreadIdx: 1 },
+      { title: 'Wood-Fired Pizzas', items: pizzaItems, pageNum: 4, spreadIdx: 1 },
+      { title: 'Handcrafted Desserts', items: dessertItems, pageNum: 5, spreadIdx: 2 },
+      { title: 'House Specials', items: coffeeItems.slice(0, 4), pageNum: 6, spreadIdx: 2 },
+    ];
+
     const [spreadIndex, setSpreadIndex] = useState(0);
     const [previousSpreadIndex, setPreviousSpreadIndex] = useState(0);
+    const [mobilePageIndex, setMobilePageIndex] = useState(0);
+    const [mobileSwipeDir, setMobileSwipeDir] = useState<number>(1);
     const [isFlipping, setIsFlipping] = useState(false);
     const [flipDir, setFlipDir] = useState<'next' | 'prev'>('next');
 
@@ -117,7 +129,9 @@ export default function MenuPage() {
       const dir = targetIndex > spreadIndex ? 'next' : 'prev';
       setFlipDir(dir);
       setPreviousSpreadIndex(spreadIndex);
-      setSpreadIndex(targetIndex); // Simultaneously change heading and menu items!
+      setSpreadIndex(targetIndex);
+      setMobileSwipeDir(targetIndex > spreadIndex ? 1 : -1);
+      setMobilePageIndex(targetIndex * 2);
       setIsFlipping(true);
 
       setTimeout(() => {
@@ -125,14 +139,60 @@ export default function MenuPage() {
       }, 2200);
     };
 
+    const handleMobilePageTurn = (targetPageIndex: number) => {
+      if (targetPageIndex < 0 || targetPageIndex >= mobilePages.length || targetPageIndex === mobilePageIndex) return;
+      const dir = targetPageIndex > mobilePageIndex ? 1 : -1;
+      setMobileSwipeDir(dir);
+      setMobilePageIndex(targetPageIndex);
+      const targetSpread = mobilePages[targetPageIndex].spreadIdx;
+      if (targetSpread !== spreadIndex) {
+        setPreviousSpreadIndex(spreadIndex);
+        setSpreadIndex(targetSpread);
+      }
+    };
+
     const nextSpread = () => handleSpreadTurn(spreadIndex + 1);
     const prevSpread = () => handleSpreadTurn(spreadIndex - 1);
 
     const currentSpread = spreads[spreadIndex];
     const previousSpread = spreads[previousSpreadIndex];
+    const currentMobilePage = mobilePages[mobilePageIndex];
+
+    // 3D Physical Book Page Flip Variants for Mobile Touch View - Smooth & Slow
+    const mobilePageVariants = {
+      enter: (direction: number) => ({
+        x: direction > 0 ? '100%' : '-100%',
+        rotateY: direction > 0 ? 45 : -45,
+        opacity: 0,
+        scale: 0.95,
+        transformOrigin: direction > 0 ? 'left center' : 'right center',
+      }),
+      center: {
+        x: '0%',
+        rotateY: 0,
+        opacity: 1,
+        scale: 1,
+        transformOrigin: 'left center',
+        transition: {
+          duration: 0.85, // Smooth, slow, unhurried page turn
+          ease: [0.22, 1, 0.36, 1], // Natural paper curl arc
+        },
+      },
+      exit: (direction: number) => ({
+        x: direction > 0 ? '-100%' : '100%',
+        rotateY: direction > 0 ? -45 : 45,
+        opacity: 0,
+        scale: 0.95,
+        transformOrigin: direction > 0 ? 'left center' : 'right center',
+        transition: {
+          duration: 0.85, // Smooth, slow, unhurried page turn
+          ease: [0.22, 1, 0.36, 1],
+        },
+      }),
+    };
 
     return (
-        <div className="bg-[#090b0d] text-foreground min-h-screen py-20 md:py-24">
+        <div className="bg-[#090b0d] text-foreground min-h-screen py-20 md:py-24 overflow-x-hidden">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl xl:max-w-7xl">
                 
                 {/* Header Title & Beans Icon */}
@@ -152,8 +212,8 @@ export default function MenuPage() {
                     </div>
                 </motion.div>
 
-                {/* Section Book Spread Tabs in Original Primary Theme Colors */}
-                <div className="flex justify-center flex-wrap gap-2.5 mb-8">
+                {/* Section Book Spread Tabs - Desktop Only */}
+                <div className="hidden md:flex justify-center flex-wrap gap-2.5 mb-8">
                   {spreads.map((s, idx) => (
                     <button
                       key={s.id}
@@ -172,23 +232,76 @@ export default function MenuPage() {
                   ))}
                 </div>
 
-                {/* REALISTIC 2-PAGE OPEN CAFE MENU BOOK IN ORIGINAL COLOR THEME */}
-                <div className="relative max-w-5xl mx-auto [perspective:2200px]">
+                {/* MOBILE TOUCH SWIPE MENU BOOK VIEW */}
+                <div className="block md:hidden max-w-md mx-auto relative px-1">
+                  
+                  {/* Minimal Page Counter Pill */}
+                  <div className="flex justify-center items-center gap-2 mb-4 text-xs font-sans tracking-widest uppercase font-bold text-primary/90 bg-white/5 border border-white/10 py-1.5 px-4 rounded-full w-fit mx-auto shadow-md select-none">
+                    <BookOpen className="w-3.5 h-3.5 text-primary" />
+                    <span>Page {mobilePageIndex + 1} of {mobilePages.length}</span>
+                  </div>
+
+                  {/* Outer Hardcover Binder Frame */}
+                  <div className="relative bg-[#090b0d] border-2 border-white/15 rounded-[28px] p-2.5 shadow-[0_25px_60px_rgba(0,0,0,0.95)] min-h-[540px] overflow-hidden [perspective:1200px]">
+                    <AnimatePresence initial={false} custom={mobileSwipeDir}>
+                      <motion.div
+                        key={mobilePageIndex}
+                        custom={mobileSwipeDir}
+                        variants={mobilePageVariants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        drag="x"
+                        dragConstraints={{ left: 0, right: 0 }}
+                        dragElastic={0.25}
+                        onDragEnd={(e, { offset, velocity }) => {
+                          const swipeThreshold = 35;
+                          if (offset.x < -swipeThreshold || velocity.x < -250) {
+                            // Swiped Left -> Turn Next Page
+                            if (mobilePageIndex < mobilePages.length - 1) {
+                              handleMobilePageTurn(mobilePageIndex + 1);
+                            }
+                          } else if (offset.x > swipeThreshold || velocity.x > 250) {
+                            // Swiped Right -> Turn Prev Page
+                            if (mobilePageIndex > 0) {
+                              handleMobilePageTurn(mobilePageIndex - 1);
+                            }
+                          }
+                        }}
+                        className="absolute inset-2 bg-[#090b0d] rounded-[20px] border border-white/10 p-5 shadow-2xl min-h-[520px] flex flex-col justify-between cursor-grab active:cursor-grabbing touch-pan-y overflow-hidden"
+                        style={{ backfaceVisibility: 'hidden' }}
+                      >
+                        {/* Top Right Corner Page Curl Accent */}
+                        <div className="absolute top-2.5 right-2.5 w-4 h-4 border-t-2 border-r-2 border-primary/30 rounded-tr-md pointer-events-none"></div>
+
+                        <PagePanel
+                          title={currentMobilePage.title}
+                          items={currentMobilePage.items}
+                          specialItemIds={specialItemIds}
+                          pageNum={currentMobilePage.pageNum}
+                        />
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
+                </div>
+
+                {/* DESKTOP 2-PAGE OPEN CAFE MENU BOOK IN ORIGINAL COLOR THEME */}
+                <div className="hidden md:block relative max-w-5xl mx-auto [perspective:2200px]">
                   
                   {/* Outer Hardcover Menu Book Binder */}
                   <div className="relative bg-[#090b0d] border-2 border-white/15 rounded-[32px] p-3 sm:p-5 md:p-8 shadow-[0_35px_80px_rgba(0,0,0,0.95)]">
                     
                     {/* Inner Paper Spread Container */}
-                    <div className="relative bg-[#090b0d] rounded-[24px] border border-white/10 grid grid-cols-1 md:grid-cols-2 shadow-2xl min-h-[580px] overflow-hidden">
+                    <div className="relative bg-[#090b0d] rounded-[24px] border border-white/10 grid grid-cols-2 shadow-2xl min-h-[580px] overflow-hidden">
                       
                       {/* Central Book Spine Binder */}
-                      <div className="hidden md:flex flex-col justify-between absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-7 bg-gradient-to-r from-black/95 via-primary/20 to-black/95 border-x border-white/15 z-30 pointer-events-none shadow-2xl">
+                      <div className="flex flex-col justify-between absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-7 bg-gradient-to-r from-black/95 via-primary/20 to-black/95 border-x border-white/15 z-30 pointer-events-none shadow-2xl">
                         <div className="w-full h-4 bg-primary/20 border-b border-primary/30"></div>
                         <div className="w-full h-4 bg-primary/20 border-t border-primary/30"></div>
                       </div>
 
-                      {/* Left Page Paper Spread (Simultaneously Updated) */}
-                      <div className="p-6 md:p-10 border-b md:border-b-0 md:border-r border-white/10 relative">
+                      {/* Left Page Paper Spread */}
+                      <div className="p-6 md:p-10 border-r border-white/10 relative">
                         <div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-black/60 to-transparent pointer-events-none"></div>
                         <PagePanel
                           title={currentSpread.left.title}
@@ -198,7 +311,7 @@ export default function MenuPage() {
                         />
                       </div>
 
-                      {/* Right Page Paper Spread (Simultaneously Updated) */}
+                      {/* Right Page Paper Spread */}
                       <div className="p-6 md:p-10 relative">
                         <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-black/60 to-transparent pointer-events-none"></div>
                         <PagePanel
@@ -209,7 +322,7 @@ export default function MenuPage() {
                         />
                       </div>
 
-                      {/* ACCURATE FORWARD & REVERSE VERY SLOW PHYSICAL 3D PAGE TURN FLIP SHEET */}
+                      {/* ACCURATE FORWARD & REVERSE PHYSICAL 3D PAGE TURN FLIP SHEET */}
                       <AnimatePresence>
                         {isFlipping && (
                           <motion.div
@@ -222,15 +335,15 @@ export default function MenuPage() {
                             }}
                             exit={{ opacity: 0 }}
                             transition={{
-                              duration: 2.2, // Very slow, unhurried, authentic physical paper flip
-                              ease: [0.22, 1, 0.36, 1], // Smooth paper arc
+                              duration: 2.2,
+                              ease: [0.22, 1, 0.36, 1],
                             }}
                             style={{
                               transformOrigin: flipDir === 'next' ? 'left center' : 'right center',
                               backfaceVisibility: 'hidden',
                             }}
                             className={cn(
-                              "hidden md:block absolute top-0 bottom-0 bg-[#090b0d] border border-white/20 p-10 z-40 shadow-2xl overflow-hidden pointer-events-none",
+                              "absolute top-0 bottom-0 bg-[#090b0d] border border-white/20 p-10 z-40 shadow-2xl overflow-hidden pointer-events-none",
                               flipDir === 'next' ? "left-1/2 right-0 rounded-r-[24px]" : "left-0 right-1/2 rounded-l-[24px]"
                             )}
                           >
@@ -289,8 +402,8 @@ export default function MenuPage() {
                   </div>
                 </div>
 
-                {/* Bottom Menu Book Controls */}
-                <div className="flex items-center justify-between mt-8 max-w-3xl mx-auto px-4">
+                {/* Desktop Bottom Menu Book Controls */}
+                <div className="hidden md:flex items-center justify-between mt-8 max-w-3xl mx-auto px-4">
                   <button
                     onClick={prevSpread}
                     disabled={spreadIndex === 0 || isFlipping}
@@ -330,3 +443,4 @@ export default function MenuPage() {
         </div>
     );
 }
+
