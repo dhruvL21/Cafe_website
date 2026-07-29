@@ -61,18 +61,19 @@ const MenuItem = ({ item, index }: { item: MenuItemType, index: number }) => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: false, amount: 0.1 }}
-      className={`relative flex flex-col md:flex-row items-center justify-between mb-16 md:mb-24 ${
+      className={`relative flex flex-col md:flex-row items-center justify-between mb-20 md:mb-32 ${
         index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
       }`}
     >
-      <div className="relative w-2/3 md:w-1/4 group mb-6 md:mb-0">
+      {/* Larger Coffee / Dish Image Container */}
+      <div className="relative w-3/4 md:w-1/3 lg:w-2/5 group mb-8 md:mb-0">
         <motion.div
-            className="absolute inset-0 -translate-x-1/4 -translate-y-1/4 rounded-full bg-secondary/20 blur-2xl transition-all duration-500 group-hover:opacity-75"
+            className="absolute inset-0 -translate-x-1/4 -translate-y-1/4 rounded-full bg-secondary/25 blur-3xl transition-all duration-500 group-hover:opacity-85"
         ></motion.div>
         <motion.div
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.06 }}
             animate={{ 
-                y: [0, -8, 0],
+                y: [0, -10, 0],
                 rotate: [0, 2, -2, 0]
             }}
             transition={{ 
@@ -85,24 +86,25 @@ const MenuItem = ({ item, index }: { item: MenuItemType, index: number }) => {
             <Image
                 src={menuImages[item.imageId]}
                 alt={item.name}
-                width={400}
-                height={400}
-                className="rounded-full object-cover aspect-square shadow-2xl shadow-black/30"
+                width={600}
+                height={600}
+                className="rounded-full object-cover aspect-square shadow-2xl shadow-black/50 w-full h-auto"
                 data-ai-hint={item.imageId.replace(/-/g, ' ')}
             />
         </motion.div>
       </div>
 
+      {/* Larger Typography & Details */}
       <div
         className={`w-full md:w-1/2 text-center ${
           index % 2 === 0 ? 'md:text-left' : 'md:text-right'
         }`}
       >
-        <h3 className="sirivennela-regular text-4xl sm:text-5xl md:text-7xl">{item.name}</h3>
-        <p className="font-sans text-sm md:text-base text-muted-foreground mt-4 leading-relaxed">
+        <h3 className="sirivennela-regular text-6xl sm:text-7xl md:text-8xl lg:text-9xl leading-none">{item.name}</h3>
+        <p className="font-sans text-base sm:text-lg md:text-xl text-muted-foreground mt-5 leading-relaxed">
           {item.description}
         </p>
-        <p className="font-sans font-bold text-lg md:text-xl text-primary mt-4">₹{item.price}</p>
+        <p className="font-sans font-extrabold text-2xl sm:text-3xl md:text-4xl text-primary mt-5 tracking-wide">₹{item.price}</p>
       </div>
 
       <VineSVG className={`hidden md:block ${

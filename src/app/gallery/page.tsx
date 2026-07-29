@@ -1,5 +1,5 @@
 'use client';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
+
 import { motion } from 'framer-motion';
 import TextPressureAnimation from '@/components/ui/text-pressure-animation';
 import TiltImageCard from '@/components/ui/tilt-image-card';
@@ -17,8 +17,80 @@ const SmokeEffect = () => {
     );
 };
 
-
-const galleryImages = PlaceHolderImages.filter(img => img.id.startsWith('gallery-'));
+const galleryImages = [
+  {
+    id: 'g-ambience-1',
+    imageUrl: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    description: 'Warm & Aesthetic Cafe Interior',
+    imageHint: 'cafe interior warm',
+  },
+  {
+    id: 'g-ambience-2',
+    imageUrl: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    description: 'Cozy Corner Coffee Atmosphere',
+    imageHint: 'cozy coffee shop',
+  },
+  {
+    id: 'g-ambience-3',
+    imageUrl: 'https://images.unsplash.com/photo-1567880905822-56f8e06fe630?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    description: 'Sunlit Wooden Cafe Seating',
+    imageHint: 'sunlit cafe',
+  },
+  {
+    id: 'g-ambience-4',
+    imageUrl: 'https://images.unsplash.com/photo-1559496417-e7f25cb247f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    description: 'Artisanal Barista Latte Pour',
+    imageHint: 'barista pour',
+  },
+  {
+    id: 'g-ambience-5',
+    imageUrl: 'https://images.unsplash.com/photo-1442512595331-e89e73853f31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    description: 'Relaxing Reading Nook & Coffee',
+    imageHint: 'coffee reading nook',
+  },
+  {
+    id: 'g-ambience-6',
+    imageUrl: 'https://images.unsplash.com/photo-1521017432531-fbd92d768814?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    description: 'Rustic Coffee Shop Lounge',
+    imageHint: 'rustic cafe lounge',
+  },
+  {
+    id: 'g-ambience-7',
+    imageUrl: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    description: 'Aromatic Roasted Coffee Beans Display',
+    imageHint: 'coffee beans atmosphere',
+  },
+  {
+    id: 'g-ambience-8',
+    imageUrl: 'https://images.unsplash.com/photo-1497636577773-f1231844b336?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    description: 'Warm Espresso Machine Glow',
+    imageHint: 'espresso machine glow',
+  },
+  {
+    id: 'g-ambience-9',
+    imageUrl: 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    description: 'Garden Outdoor Patio Seating',
+    imageHint: 'outdoor cafe patio',
+  },
+  {
+    id: 'g-ambience-10',
+    imageUrl: 'https://images.unsplash.com/photo-1525610553991-2bede1a236e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    description: 'Vintage Armchair Coffee Lounge',
+    imageHint: 'vintage cafe corner',
+  },
+  {
+    id: 'g-ambience-11',
+    imageUrl: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    description: 'Warm Evening Storefront Glow',
+    imageHint: 'evening cafe glow',
+  },
+  {
+    id: 'g-ambience-12',
+    imageUrl: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    description: 'Fresh Brew & Warm Morning Light',
+    imageHint: 'morning coffee light',
+  },
+];
 
 export default function GalleryPage() {
   const containerVariants = {
@@ -34,18 +106,18 @@ export default function GalleryPage() {
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-[#090b0d]">
       <SmokeEffect />
-      <div className="container py-12 md:py-16 relative z-10">
-        <div className="text-center mb-12 md:mb-16 max-w-4xl mx-auto -mt-8 md:-mt-16">
-          <div className="flex items-center justify-center h-24 md:h-auto">
-            <TextPressureAnimation text="Gallery" minFontSize={48} />
+      <div className="container pt-4 md:pt-6 pb-16 relative z-10">
+        <div className="text-center mb-10 md:mb-14 max-w-4xl mx-auto">
+          <div className="flex items-center justify-center h-28 md:h-auto">
+            <TextPressureAnimation text="Gallery" minFontSize={72} />
           </div>
-          <p className="mt-2 md:mt-4 text-lg sm:text-xl md:text-2xl text-muted-foreground meie-script-regular">
+          <p className="mt-3 md:mt-5 text-xl sm:text-2xl md:text-3xl text-muted-foreground meie-script-regular">
             A collection of moments and memories from our cozy cafe.
           </p>
         </div>
 
         <motion.div 
-          className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4"
+          className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -56,9 +128,9 @@ export default function GalleryPage() {
               key={image.id}
               src={image.imageUrl}
               alt={image.description}
-              width={800}
-              height={600}
-              className="object-cover w-full h-auto border border-border/20"
+              width={1000}
+              height={750}
+              className="object-cover w-full h-auto rounded-2xl border border-white/15 shadow-xl hover:border-primary/50 transition-all duration-300"
               data-ai-hint={image.imageHint}
             />
           ))}

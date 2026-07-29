@@ -96,7 +96,7 @@ const HeroSection = () => {
       />
 
       {/* Desktop Content */}
-      <div className="hidden md:flex absolute inset-0 items-center justify-start z-10">
+      <div className="hidden md:flex absolute inset-0 pt-20 md:pt-24 lg:pt-28 items-center justify-start z-10">
         <div className="container">
           <motion.div 
             className="flex flex-col w-full max-w-xl" 

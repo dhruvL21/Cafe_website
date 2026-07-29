@@ -1,7 +1,7 @@
 export const NAV_LINKS = [
-  { href: '/', label: 'HOME' },
-  { href: '/menu', label: 'MENU' },
-  { href: '/specials', label: 'SPECIALS' },
-  { href: '/gallery', label: 'GALLERY' },
-  { href: '/location', label: 'LOCATION' },
+  { href: '/', label: 'HOME', iconName: 'home' },
+  { href: '/menu', label: 'MENU', iconName: 'menu' },
+  { href: '/specials', label: 'SPECIALS', iconName: 'specials' },
+  { href: '/gallery', label: 'GALLERY', iconName: 'gallery' },
+  { href: '/location', label: 'LOCATION', iconName: 'location' },
 ];

@@ -102,7 +102,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
       >
         <div className={cn(`relative flex min-h-screen flex-col transition-opacity duration-500 bg-background`, loading ? 'opacity-0' : 'opacity-100')}>
         <Header />
-<main className={cn("flex-1", isClient && !isHome && "pt-20")}>
+<main className={cn("flex-1", isClient && !isHome && "pt-24 md:pt-28")}>
   {children}
 </main>
 {isClient && isHome && <Footer />}

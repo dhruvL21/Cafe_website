@@ -1,9 +1,11 @@
 'use client';
-import { motion } from 'framer-motion';
+
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { menuData } from '@/lib/full-menu';
 import type { MenuItem as MenuItemType } from '@/lib/full-menu';
 import { cn } from '@/lib/utils';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
 
 const CoffeeBeansIcon = ({ className }: { className?: string }) => (
     <svg
@@ -20,51 +22,54 @@ const CoffeeBeansIcon = ({ className }: { className?: string }) => (
     </svg>
 );
 
-
 const MenuItem = ({ name, description, price, isSpecial }: { name: string, description: string, price: string, isSpecial: boolean }) => {
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: false, amount: 0.1 }}
-            className="bg-transparent"
-        >
+        <div className="bg-transparent mb-5 last:mb-0">
             <div className="flex justify-between items-baseline gap-2">
-                <h3 className="text-xl sm:text-2xl font-poiret-one tracking-wider text-foreground uppercase flex items-center gap-2">
+                <h3 className="text-base sm:text-lg font-poiret-one tracking-wider text-foreground uppercase flex items-center gap-2 font-bold">
                     <span>{name}</span>
-                    {isSpecial && <Sparkles className="size-4 text-primary shrink-0" />}
+                    {isSpecial && <Sparkles className="size-3.5 text-primary shrink-0" />}
                 </h3>
                 <div className="flex-grow border-b border-dotted border-border/50"></div>
-                <span className="text-lg sm:text-xl font-sans text-foreground">{price}</span>
+                <span className="text-base sm:text-lg font-sans font-extrabold text-primary">{price}</span>
             </div>
-            <p className="text-muted-foreground text-sm mt-1">{description}</p>
-        </motion.div>
-    );
-};
-
-const MenuCategory = ({ title, items, specialItemIds }: { title: string; items: MenuItemType[], specialItemIds: string[] }) => {
-    if (items.length === 0) return null;
-
-    return (
-        <div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-limelight tracking-wider mb-8 text-center text-primary/80">{title.toUpperCase()}</h2>
-            <div className="relative grid grid-cols-1 md:grid-cols-2 md:gap-x-24 gap-y-12">
-                <div className="hidden md:block absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px bg-border/50"></div>
-                {items.map((item) => (
-                    <MenuItem
-                        key={item.id}
-                        name={item.name}
-                        description={item.description}
-                        price={`₹${item.price}`}
-                        isSpecial={specialItemIds.includes(item.id)}
-                    />
-                ))}
-            </div>
+            <p className="text-muted-foreground text-xs mt-1 leading-relaxed">{description}</p>
         </div>
     );
 };
 
+const PagePanel = ({ title, items, specialItemIds, pageNum }: { title: string; items: MenuItemType[]; specialItemIds: string[]; pageNum: number }) => {
+    return (
+        <div className="w-full h-full flex flex-col justify-between p-2">
+            <div>
+                {/* Signature Cafe Name Logo at Top of Book Page */}
+                <div className="text-center -mt-2 md:-mt-4 mb-5">
+                    <h1 className="font-splash text-lg sm:text-xl md:text-2xl text-primary drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] leading-none mb-3 md:mb-4">Cup o' Joy</h1>
+                    <h2 className="text-xl sm:text-2xl font-limelight tracking-wider text-foreground uppercase mt-2 md:mt-3">{title}</h2>
+                    <div className="w-12 h-0.5 bg-primary/40 mx-auto mt-3 rounded-full"></div>
+                </div>
+
+                {/* Menu Items List */}
+                <div className="space-y-4">
+                    {items.map((item) => (
+                        <MenuItem
+                            key={item.id}
+                            name={item.name}
+                            description={item.description}
+                            price={`₹${item.price}`}
+                            isSpecial={specialItemIds.includes(item.id)}
+                        />
+                    ))}
+                </div>
+            </div>
+
+            {/* Page Footer Number */}
+            <div className="pt-4 border-t border-white/10 text-center text-[11px] font-sans text-muted-foreground uppercase tracking-widest font-semibold">
+                Page {pageNum}
+            </div>
+        </div>
+    );
+};
 
 export default function MenuPage() {
     const specialItemIds = [
@@ -79,11 +84,60 @@ export default function MenuPage() {
     const pizzaItems = menuData.filter(item => item.category === 'Pizza');
     const dessertItems = menuData.filter(item => item.category === 'Dessert');
 
+    // Spreads for 2-Page Open Menu Book Layout
+    const spreads = [
+      {
+        id: 'spread-1',
+        title: 'Coffee & Brews',
+        left: { title: 'Espresso & Coffees', items: coffeeItems.slice(0, 5), pageNum: 1 },
+        right: { title: 'Lattes & Cold Brews', items: coffeeItems.slice(5), pageNum: 2 },
+      },
+      {
+        id: 'spread-2',
+        title: 'Pastas & Pizzas',
+        left: { title: 'Artisanal Pastas', items: pastaItems, pageNum: 3 },
+        right: { title: 'Wood-Fired Pizzas', items: pizzaItems, pageNum: 4 },
+      },
+      {
+        id: 'spread-3',
+        title: 'Desserts & Sweets',
+        left: { title: 'Handcrafted Desserts', items: dessertItems, pageNum: 5 },
+        right: { title: 'House Specials', items: coffeeItems.slice(0, 4), pageNum: 6 },
+      },
+    ];
+
+    const [spreadIndex, setSpreadIndex] = useState(0);
+    const [previousSpreadIndex, setPreviousSpreadIndex] = useState(0);
+    const [isFlipping, setIsFlipping] = useState(false);
+    const [flipDir, setFlipDir] = useState<'next' | 'prev'>('next');
+
+    const handleSpreadTurn = (targetIndex: number) => {
+      if (isFlipping || targetIndex === spreadIndex || targetIndex < 0 || targetIndex >= spreads.length) return;
+      
+      const dir = targetIndex > spreadIndex ? 'next' : 'prev';
+      setFlipDir(dir);
+      setPreviousSpreadIndex(spreadIndex);
+      setSpreadIndex(targetIndex); // Simultaneously change heading and menu items!
+      setIsFlipping(true);
+
+      setTimeout(() => {
+        setIsFlipping(false);
+      }, 2200);
+    };
+
+    const nextSpread = () => handleSpreadTurn(spreadIndex + 1);
+    const prevSpread = () => handleSpreadTurn(spreadIndex - 1);
+
+    const currentSpread = spreads[spreadIndex];
+    const previousSpread = spreads[previousSpreadIndex];
+
     return (
-        <div className="bg-[#090b0d] text-foreground min-h-screen py-16 sm:py-24">
+        <div className="bg-[#090b0d] text-foreground min-h-screen py-20 md:py-24">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl xl:max-w-7xl">
+                
+                {/* Header Title & Beans Icon */}
                 <motion.div
-                    className="text-center mb-16"
+                    className="text-center mb-6"
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
@@ -91,18 +145,186 @@ export default function MenuPage() {
                     <p className="text-muted-foreground text-2xl md:text-3xl meie-script-regular">
                         Handcrafted with passion, from our kitchen to your table.
                     </p>
-                    <div className="flex justify-center my-4">
+                    <div className="flex justify-center my-3">
                         <div className="w-20 h-px bg-primary/50"></div>
                         <CoffeeBeansIcon className="h-6 w-9 text-primary/80 mx-4" />
                         <div className="w-20 h-px bg-primary/50"></div>
                     </div>
                 </motion.div>
 
-                <div className="bg-transparent border border-border/50 rounded-2xl p-8 md:p-12 space-y-16">
-                   <MenuCategory title="Coffee" items={coffeeItems} specialItemIds={specialItemIds} />
-                   <MenuCategory title="Pasta" items={pastaItems} specialItemIds={specialItemIds} />
-                   <MenuCategory title="Pizza" items={pizzaItems} specialItemIds={specialItemIds} />
-                   <MenuCategory title="Desserts" items={dessertItems} specialItemIds={specialItemIds} />
+                {/* Section Book Spread Tabs in Original Primary Theme Colors */}
+                <div className="flex justify-center flex-wrap gap-2.5 mb-8">
+                  {spreads.map((s, idx) => (
+                    <button
+                      key={s.id}
+                      onClick={() => handleSpreadTurn(idx)}
+                      disabled={isFlipping}
+                      className={cn(
+                        'px-5 py-2 rounded-full text-xs sm:text-sm font-sans font-bold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 border select-none',
+                        idx === spreadIndex
+                          ? 'bg-primary/20 text-primary border-primary/40 shadow-[0_0_15px_rgba(255,255,255,0.1)] scale-105'
+                          : 'bg-white/5 text-muted-foreground border-white/10 hover:text-foreground hover:bg-white/10'
+                      )}
+                    >
+                      <BookOpen className="w-4 h-4 text-primary" />
+                      <span>{s.title}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* REALISTIC 2-PAGE OPEN CAFE MENU BOOK IN ORIGINAL COLOR THEME */}
+                <div className="relative max-w-5xl mx-auto [perspective:2200px]">
+                  
+                  {/* Outer Hardcover Menu Book Binder */}
+                  <div className="relative bg-[#090b0d] border-2 border-white/15 rounded-[32px] p-3 sm:p-5 md:p-8 shadow-[0_35px_80px_rgba(0,0,0,0.95)]">
+                    
+                    {/* Inner Paper Spread Container */}
+                    <div className="relative bg-[#090b0d] rounded-[24px] border border-white/10 grid grid-cols-1 md:grid-cols-2 shadow-2xl min-h-[580px] overflow-hidden">
+                      
+                      {/* Central Book Spine Binder */}
+                      <div className="hidden md:flex flex-col justify-between absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-7 bg-gradient-to-r from-black/95 via-primary/20 to-black/95 border-x border-white/15 z-30 pointer-events-none shadow-2xl">
+                        <div className="w-full h-4 bg-primary/20 border-b border-primary/30"></div>
+                        <div className="w-full h-4 bg-primary/20 border-t border-primary/30"></div>
+                      </div>
+
+                      {/* Left Page Paper Spread (Simultaneously Updated) */}
+                      <div className="p-6 md:p-10 border-b md:border-b-0 md:border-r border-white/10 relative">
+                        <div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-black/60 to-transparent pointer-events-none"></div>
+                        <PagePanel
+                          title={currentSpread.left.title}
+                          items={currentSpread.left.items}
+                          specialItemIds={specialItemIds}
+                          pageNum={currentSpread.left.pageNum}
+                        />
+                      </div>
+
+                      {/* Right Page Paper Spread (Simultaneously Updated) */}
+                      <div className="p-6 md:p-10 relative">
+                        <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-black/60 to-transparent pointer-events-none"></div>
+                        <PagePanel
+                          title={currentSpread.right.title}
+                          items={currentSpread.right.items}
+                          specialItemIds={specialItemIds}
+                          pageNum={currentSpread.right.pageNum}
+                        />
+                      </div>
+
+                      {/* ACCURATE FORWARD & REVERSE VERY SLOW PHYSICAL 3D PAGE TURN FLIP SHEET */}
+                      <AnimatePresence>
+                        {isFlipping && (
+                          <motion.div
+                            key={`spread-flip-${previousSpreadIndex}-${spreadIndex}`}
+                            initial={{
+                              rotateY: 0,
+                            }}
+                            animate={{
+                              rotateY: flipDir === 'next' ? -180 : 180,
+                            }}
+                            exit={{ opacity: 0 }}
+                            transition={{
+                              duration: 2.2, // Very slow, unhurried, authentic physical paper flip
+                              ease: [0.22, 1, 0.36, 1], // Smooth paper arc
+                            }}
+                            style={{
+                              transformOrigin: flipDir === 'next' ? 'left center' : 'right center',
+                              backfaceVisibility: 'hidden',
+                            }}
+                            className={cn(
+                              "hidden md:block absolute top-0 bottom-0 bg-[#090b0d] border border-white/20 p-10 z-40 shadow-2xl overflow-hidden pointer-events-none",
+                              flipDir === 'next' ? "left-1/2 right-0 rounded-r-[24px]" : "left-0 right-1/2 rounded-l-[24px]"
+                            )}
+                          >
+                            {/* Page Turning Fold Lighting & Shadow Interpolation */}
+                            <motion.div
+                              initial={{ opacity: 0.95 }}
+                              animate={{ opacity: 0 }}
+                              transition={{ duration: 2.2, ease: 'easeInOut' }}
+                              className={cn(
+                                "absolute inset-0 z-50 pointer-events-none",
+                                flipDir === 'next'
+                                  ? "bg-gradient-to-r from-black/90 via-black/40 to-transparent"
+                                  : "bg-gradient-to-l from-black/90 via-black/40 to-transparent"
+                              )}
+                            />
+                            
+                            <div className="opacity-90">
+                              <PagePanel
+                                title={flipDir === 'next' ? previousSpread.right.title : previousSpread.left.title}
+                                items={flipDir === 'next' ? previousSpread.right.items : previousSpread.left.items}
+                                specialItemIds={specialItemIds}
+                                pageNum={flipDir === 'next' ? previousSpread.right.pageNum : previousSpread.left.pageNum}
+                              />
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+
+                    {/* Interactive Book Page Turn Click Edges */}
+                    {spreadIndex > 0 && (
+                      <button
+                        onClick={prevSpread}
+                        title="Turn to Previous Menu Page"
+                        aria-label="Previous page edge"
+                        className="absolute left-1 top-1/2 -translate-y-1/2 z-40 group cursor-pointer focus:outline-none"
+                      >
+                        <div className="p-3 rounded-r-full bg-white/10 group-hover:bg-primary/30 text-white/80 group-hover:text-primary transition-all duration-300 shadow-xl group-hover:scale-110">
+                          <ChevronLeft className="w-6 h-6" />
+                        </div>
+                      </button>
+                    )}
+
+                    {spreadIndex < spreads.length - 1 && (
+                      <button
+                        onClick={nextSpread}
+                        title="Turn to Next Menu Page"
+                        aria-label="Next page edge"
+                        className="absolute right-1 top-1/2 -translate-y-1/2 z-40 group cursor-pointer focus:outline-none"
+                      >
+                        <div className="p-3 rounded-l-full bg-white/10 group-hover:bg-primary/30 text-white/80 group-hover:text-primary transition-all duration-300 shadow-xl group-hover:scale-110">
+                          <ChevronRight className="w-6 h-6" />
+                        </div>
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Bottom Menu Book Controls */}
+                <div className="flex items-center justify-between mt-8 max-w-3xl mx-auto px-4">
+                  <button
+                    onClick={prevSpread}
+                    disabled={spreadIndex === 0 || isFlipping}
+                    className={cn(
+                      'flex items-center gap-2 px-6 py-3 rounded-full border text-xs sm:text-sm font-sans font-bold uppercase tracking-wider transition-all duration-200 select-none',
+                      spreadIndex === 0 || isFlipping
+                        ? 'opacity-30 cursor-not-allowed border-white/10 text-muted-foreground'
+                        : 'border-white/20 text-foreground bg-white/5 hover:bg-primary/20 hover:border-primary/40 active:scale-95 shadow-lg'
+                    )}
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                    <span>Turn Back</span>
+                  </button>
+
+                  <div className="flex items-center gap-2">
+                    <BookOpen className="w-4 h-4 text-primary" />
+                    <span className="text-xs font-sans text-muted-foreground uppercase tracking-widest font-bold">
+                      Spread {spreadIndex + 1} of {spreads.length}
+                    </span>
+                  </div>
+
+                  <button
+                    onClick={nextSpread}
+                    disabled={spreadIndex === spreads.length - 1 || isFlipping}
+                    className={cn(
+                      'flex items-center gap-2 px-6 py-3 rounded-full border text-xs sm:text-sm font-sans font-bold uppercase tracking-wider transition-all duration-200 select-none',
+                      spreadIndex === spreads.length - 1 || isFlipping
+                        ? 'opacity-30 cursor-not-allowed border-white/10 text-muted-foreground'
+                        : 'border-white/20 text-foreground bg-white/5 hover:bg-primary/20 hover:border-primary/40 active:scale-95 shadow-lg'
+                    )}
+                  >
+                    <span>Turn Page</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
                 </div>
             </div>
         </div>

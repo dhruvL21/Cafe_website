@@ -88,13 +88,15 @@
   .homepage-bg {
     background-image: url('/new_mob_hp.png');
     background-size: cover;
-    background-position: center 80%;
+    background-position: center top 45px;
     background-attachment: fixed;
   }
   @media (min-width: 768px) {
     .homepage-bg {
       background-image: url('/desk_homepage.png?v=3');
-      background-position: right center;
+      background-position: right top 45px;
+      background-size: cover;
+      background-attachment: fixed;
     }
   }
   .is-iphone .homepage-bg {
