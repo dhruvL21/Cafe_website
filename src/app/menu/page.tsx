@@ -267,7 +267,7 @@ export default function MenuPage() {
                   </div>
 
                   {/* Outer Hardcover Binder Frame */}
-                  <div className="relative bg-[#090b0d] border-2 border-white/15 rounded-[28px] p-2.5 shadow-[0_25px_60px_rgba(0,0,0,0.95)] h-[560px] sm:h-[600px] overflow-hidden [perspective:1200px]">
+                  <div className="relative bg-[#090b0d] border-2 border-white/15 rounded-[28px] p-2.5 shadow-[0_25px_60px_rgba(0,0,0,0.95)] h-[660px] sm:h-[720px] overflow-hidden [perspective:1200px]">
                     <AnimatePresence initial={false} custom={mobileSwipeDir}>
                       <motion.div
                         key={mobilePageIndex}
@@ -293,7 +293,7 @@ export default function MenuPage() {
                             }
                           }
                         }}
-                        className="absolute inset-2 bg-[#090b0d] rounded-[20px] border border-white/10 p-3.5 sm:p-5 shadow-2xl h-[calc(100%-16px)] flex flex-col justify-between cursor-grab active:cursor-grabbing touch-pan-y overflow-hidden"
+                        className="absolute inset-2 bg-[#090b0d] rounded-[20px] border border-white/10 p-4 sm:p-5 shadow-2xl h-[calc(100%-16px)] flex flex-col justify-between cursor-grab active:cursor-grabbing touch-pan-y overflow-hidden"
                         style={{ backfaceVisibility: 'hidden' }}
                       >
                         {/* Top Right Corner Page Curl Accent */}
