@@ -4,9 +4,11 @@ import { motion } from 'framer-motion';
 import TextPressureAnimation from '@/components/ui/text-pressure-animation';
 import TiltImageCard from '@/components/ui/tilt-image-card';
 
+import { useIsMobile } from '@/hooks/use-mobile';
+
 const SmokeEffect = () => {
     return (
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div className="hidden md:block absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <div className="absolute inset-0 bg-transparent" />
             <div id="smoke" className="absolute inset-0">
                 {Array.from({ length: 12 }).map((_, i) => (
@@ -93,6 +95,8 @@ const galleryImages = [
 ];
 
 export default function GalleryPage() {
+  const isMobile = useIsMobile();
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -107,9 +111,15 @@ export default function GalleryPage() {
     <div className="relative min-h-screen w-full overflow-hidden bg-[#090b0d]">
       <SmokeEffect />
       <div className="container pt-4 md:pt-6 pb-16 relative z-10">
-        <div className="text-center mb-10 md:mb-14 max-w-4xl mx-auto">
-          <div className="flex items-center justify-center h-28 md:h-auto">
-            <TextPressureAnimation text="Gallery" minFontSize={72} />
+        <div className="text-center mb-8 md:mb-14 max-w-4xl mx-auto">
+          <div className="flex items-center justify-center min-h-[60px] md:h-auto">
+            {isMobile ? (
+              <h1 className="text-4xl font-bold font-sans tracking-tight text-white py-2">
+                Gallery
+              </h1>
+            ) : (
+              <TextPressureAnimation text="Gallery" minFontSize={72} />
+            )}
           </div>
           <p className="mt-3 md:mt-5 text-xl sm:text-2xl md:text-3xl text-muted-foreground meie-script-regular">
             A collection of moments and memories from our cozy cafe.
@@ -119,9 +129,10 @@ export default function GalleryPage() {
         <motion.div 
           className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6"
           variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, amount: 0.1 }}
+          initial={isMobile ? "visible" : "hidden"}
+          animate="visible"
+          whileInView={isMobile ? undefined : "visible"}
+          viewport={isMobile ? undefined : { once: false, amount: 0.1 }}
         >
           {galleryImages.map((image) => (
             <TiltImageCard

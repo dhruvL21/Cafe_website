@@ -40,17 +40,17 @@ const MenuItem = ({ name, description, price, isSpecial }: { name: string, descr
 
 const PagePanel = ({ title, items, specialItemIds, pageNum }: { title: string; items: MenuItemType[]; specialItemIds: string[]; pageNum: number }) => {
     return (
-        <div className="w-full h-full flex flex-col justify-between p-2">
-            <div>
+        <div className="w-full h-full flex flex-col justify-between p-1 sm:p-2 overflow-hidden">
+            <div className="overflow-y-auto flex-1 pr-1 custom-scrollbar space-y-3 sm:space-y-4">
                 {/* Signature Cafe Name Logo at Top of Book Page */}
-                <div className="text-center -mt-2 md:-mt-4 mb-5">
-                    <h1 className="font-splash text-lg sm:text-xl md:text-2xl text-primary drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] leading-none mb-3 md:mb-4">Cup o' Joy</h1>
-                    <h2 className="text-xl sm:text-2xl font-limelight tracking-wider text-foreground uppercase mt-2 md:mt-3">{title}</h2>
-                    <div className="w-12 h-0.5 bg-primary/40 mx-auto mt-3 rounded-full"></div>
+                <div className="text-center -mt-1 md:-mt-4 mb-4 md:mb-5">
+                    <h1 className="font-splash text-lg sm:text-xl md:text-2xl text-primary drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] leading-none mb-2 md:mb-4">Cup o' Joy</h1>
+                    <h2 className="text-lg sm:text-2xl font-limelight tracking-wider text-foreground uppercase mt-1 md:mt-3">{title}</h2>
+                    <div className="w-12 h-0.5 bg-primary/40 mx-auto mt-2 md:mt-3 rounded-full"></div>
                 </div>
 
                 {/* Menu Items List */}
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                     {items.map((item) => (
                         <MenuItem
                             key={item.id}
@@ -64,7 +64,7 @@ const PagePanel = ({ title, items, specialItemIds, pageNum }: { title: string; i
             </div>
 
             {/* Page Footer Number */}
-            <div className="pt-4 border-t border-white/10 text-center text-[11px] font-sans text-muted-foreground uppercase tracking-widest font-semibold">
+            <div className="pt-3 mt-2 border-t border-white/10 text-center text-[11px] sm:text-xs font-sans text-primary/90 uppercase tracking-widest font-bold shrink-0">
                 Page {pageNum}
             </div>
         </div>
@@ -267,7 +267,7 @@ export default function MenuPage() {
                   </div>
 
                   {/* Outer Hardcover Binder Frame */}
-                  <div className="relative bg-[#090b0d] border-2 border-white/15 rounded-[28px] p-2.5 shadow-[0_25px_60px_rgba(0,0,0,0.95)] min-h-[540px] overflow-hidden [perspective:1200px]">
+                  <div className="relative bg-[#090b0d] border-2 border-white/15 rounded-[28px] p-2.5 shadow-[0_25px_60px_rgba(0,0,0,0.95)] h-[560px] sm:h-[600px] overflow-hidden [perspective:1200px]">
                     <AnimatePresence initial={false} custom={mobileSwipeDir}>
                       <motion.div
                         key={mobilePageIndex}
@@ -293,7 +293,7 @@ export default function MenuPage() {
                             }
                           }
                         }}
-                        className="absolute inset-2 bg-[#090b0d] rounded-[20px] border border-white/10 p-5 shadow-2xl min-h-[520px] flex flex-col justify-between cursor-grab active:cursor-grabbing touch-pan-y overflow-hidden"
+                        className="absolute inset-2 bg-[#090b0d] rounded-[20px] border border-white/10 p-3.5 sm:p-5 shadow-2xl h-[calc(100%-16px)] flex flex-col justify-between cursor-grab active:cursor-grabbing touch-pan-y overflow-hidden"
                         style={{ backfaceVisibility: 'hidden' }}
                       >
                         {/* Top Right Corner Page Curl Accent */}
