@@ -43,9 +43,9 @@ const PagePanel = ({ title, items, specialItemIds, pageNum }: { title: string; i
         <div className="w-full h-full flex flex-col justify-between p-1 sm:p-2 overflow-hidden">
             <div className="overflow-y-auto flex-1 pr-1 custom-scrollbar space-y-3 sm:space-y-4">
                 {/* Signature Cafe Name Logo at Top of Book Page */}
-                <div className="text-center -mt-1 md:-mt-4 mb-4 md:mb-5">
-                    <h1 className="font-splash text-lg sm:text-xl md:text-2xl text-primary drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] leading-none mb-2 md:mb-4">Cup o' Joy</h1>
-                    <h2 className="text-lg sm:text-2xl font-limelight tracking-wider text-foreground uppercase mt-1 md:mt-3">{title}</h2>
+                <div className="text-center pt-1 md:pt-2 mb-3 md:mb-4">
+                    <h1 className="font-splash text-xl sm:text-2xl md:text-3xl text-primary drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] leading-normal py-1 mb-1 md:mb-2">Cup o' Joy</h1>
+                    <h2 className="text-lg sm:text-2xl font-limelight tracking-wider text-foreground uppercase mt-1 md:mt-2">{title}</h2>
                     <div className="w-12 h-0.5 bg-primary/40 mx-auto mt-2 md:mt-3 rounded-full"></div>
                 </div>
 

@@ -11,6 +11,7 @@ const AudioContext = createContext<AudioContextType | undefined>(undefined);
 export function AudioProvider({ children }: { children: React.ReactNode }) {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const userInteractedRef = useRef<boolean>(false);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -19,64 +20,112 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     const audio = new Audio('/audio/hitslab-bossa-nova-bossa-nova-cafe-music-457829.mp3');
     audio.loop = true;
     audio.preload = 'auto';
-    audio.muted = false; // Always unmuted
     audio.volume = 0.35; // Pleasant, audible background volume
     audio.playbackRate = 0.92;
     audioRef.current = audio;
 
-    const playAudio = () => {
+    // Start audio muted immediately (100% browser compliant, bypasses browser autoplay block)
+    const startMutedPlayback = () => {
       if (!audioRef.current) return;
+      audioRef.current.muted = true;
+      audioRef.current.play().catch(() => {});
+    };
+
+    const unmuteAndPlay = () => {
+      if (!audioRef.current) return;
+      if (document.hidden || document.visibilityState === 'hidden') return;
+
       audioRef.current.muted = false;
       audioRef.current.volume = 0.35;
 
-      audioRef.current
-        .play()
-        .then(() => {
-          setIsPlaying(true);
-          removeListeners();
-        })
-        .catch(() => {
-          // Will play on first scroll or touch gesture
-        });
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsPlaying(true);
+            userInteractedRef.current = true;
+          })
+          .catch(() => {
+            // Will play on user scroll or interaction
+          });
+      }
     };
 
-    // Attempt playing unmuted audio immediately on mount
-    playAudio();
+    const pauseAudio = () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      }
+    };
 
-    // Listen for scroll, touchmove, wheel, click or keypress in desktop and mobile view
-    const handleScrollOrGesture = () => {
-      playAudio();
+    // Initialize playback muted on mount
+    startMutedPlayback();
+    if (!document.hidden) {
+      unmuteAndPlay();
+    }
+
+    // Unmute and play music on ANY scroll, wheel, mousemove, or gesture in desktop & mobile
+    const handleUserInteraction = () => {
+      if (!document.hidden && document.visibilityState === 'visible') {
+        unmuteAndPlay();
+      }
     };
 
     const events = [
       'scroll',
       'wheel',
-      'touchmove',
-      'touchstart',
       'mousemove',
       'pointermove',
+      'mousedown',
+      'touchstart',
+      'touchmove',
       'click',
       'keydown',
     ];
 
-    const removeListeners = () => {
-      events.forEach((evt) => {
-        window.removeEventListener(evt, handleScrollOrGesture);
-        document.removeEventListener(evt, handleScrollOrGesture);
-      });
-    };
-
     events.forEach((evt) => {
-      window.addEventListener(evt, handleScrollOrGesture, { passive: true });
-      document.addEventListener(evt, handleScrollOrGesture, { passive: true });
+      window.addEventListener(evt, handleUserInteraction, { passive: true });
+      document.addEventListener(evt, handleUserInteraction, { passive: true });
     });
 
+    // Pause audio when switching tabs, leaving browser, minimizing window, or locking mobile screen
+    const handleVisibilityChange = () => {
+      if (document.hidden || document.visibilityState === 'hidden') {
+        pauseAudio();
+      } else if (userInteractedRef.current) {
+        unmuteAndPlay();
+      }
+    };
+
+    const handleBlur = () => {
+      pauseAudio();
+    };
+
+    const handleFocus = () => {
+      if (!document.hidden && document.visibilityState === 'visible' && userInteractedRef.current) {
+        unmuteAndPlay();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('blur', handleBlur);
+    window.addEventListener('focus', handleFocus);
+    window.addEventListener('pagehide', pauseAudio);
+
     return () => {
+      events.forEach((evt) => {
+        window.removeEventListener(evt, handleUserInteraction);
+        document.removeEventListener(evt, handleUserInteraction);
+      });
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('blur', handleBlur);
+      window.removeEventListener('focus', handleFocus);
+      window.removeEventListener('pagehide', pauseAudio);
+
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current = null;
       }
-      removeListeners();
     };
   }, []);
 
@@ -88,7 +137,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function AudioPromptBanner() {
-  // No banner needed; audio starts seamlessly on scroll/interaction
   return null;
 }
 
