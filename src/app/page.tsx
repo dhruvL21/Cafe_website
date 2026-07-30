@@ -192,7 +192,7 @@ const ExploreMenuSection = () => {
                           whileHover={{ y: -10 }}
                           transition={{ duration: 0.3, ease: 'easeOut' }}
                         >
-                            <div className="bg-card/30 backdrop-blur-sm border border-border/50 rounded-2xl p-6 h-full flex flex-col shadow-lg">
+                            <div className="bg-[#11161a] border border-white/15 rounded-2xl p-6 h-full flex flex-col shadow-2xl shadow-black/80">
                                 <div className="flex-grow mb-4">
                                     <div className="flex items-center gap-3 mb-2">
                                         {item.category === "Savory" && <Utensils className="size-5 text-primary" />}
@@ -238,7 +238,7 @@ const MenuItemCard = ({ item }: { item: MenuItem }) => {
 
   return (
     <div className="flex h-full">
-      <div className="relative bg-card/30 backdrop-blur-md border border-border/50 rounded-3xl px-6 md:px-8 pt-24 md:pt-28 pb-8 shadow-lg flex flex-col flex-1">
+      <div className="relative bg-[#11161a] border border-white/15 rounded-3xl px-6 md:px-8 pt-24 md:pt-28 pb-8 shadow-2xl shadow-black/80 flex flex-col flex-1">
         <div className="absolute -top-20 md:-top-28 left-1/2 -translate-x-1/2">
             <motion.div
               className="transform-origin-center"

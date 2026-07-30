@@ -10,6 +10,7 @@ import { Urbanist, Playfair_Display, Rochester, Splash, Limelight, Suravaram, Be
 import { useEffect, useState } from 'react';
 import ClickRippleEffect from '@/components/ui/click-ripple-effect';
 import { cn } from '@/lib/utils';
+import { AudioProvider, AudioPromptBanner } from '@/components/audio-player-context';
 
 const urbanist = Urbanist({ subsets: ['latin'], variable: '--font-urbanist' })
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
@@ -101,15 +102,15 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
         )}
       >
         <div className={cn(`relative flex min-h-screen flex-col transition-opacity duration-500 bg-background`, loading ? 'opacity-0' : 'opacity-100')}>
-        <Header />
-<main className={cn("flex-1", isClient && !isHome && "pt-24 md:pt-28")}>
-  {children}
-</main>
-{isClient && isHome && <Footer />}
-
+          <Header />
+          <main className={cn("flex-1", isClient && !isHome && "pt-24 md:pt-28")}>
+            {children}
+          </main>
+          {isClient && isHome && <Footer />}
         </div>
         <Toaster />
         <ClickRippleEffect />
+        <AudioPromptBanner />
       </body>
     </>
   );
@@ -123,7 +124,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <LayoutContent>{children}</LayoutContent>
+      <AudioProvider>
+        <LayoutContent>{children}</LayoutContent>
+      </AudioProvider>
     </html>
   );
 }

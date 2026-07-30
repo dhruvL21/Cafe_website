@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Coffee,
   Utensils,
@@ -36,34 +36,12 @@ const getNavIcon = (iconName?: string) => {
 
 export default function Header() {
   const [isSheetOpen, setSheetOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const pathname = usePathname();
 
-  const leftLinks = NAV_LINKS.slice(0, 3); // HOME, MENU, SPECIALS
-  const rightLinks = NAV_LINKS.slice(3);  // GALLERY, LOCATION
-
-  const mobileMenuVariants = {
-    hidden: { opacity: 0, y: -10 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        staggerChildren: 0.08,
-      },
-    },
-  };
-
-  const mobileMenuItemVariants = {
-    hidden: { y: 15, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 300,
-        damping: 24,
-      },
-    },
-  };
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const renderNavLink = (link: typeof NAV_LINKS[number]) => {
     const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
@@ -127,56 +105,80 @@ export default function Header() {
             </span>
           </Link>
 
-          <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 border border-white/15 hover:bg-white/10">
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Toggle Menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] border-l border-white/15 bg-background/95 backdrop-blur-3xl p-6 rounded-l-3xl">
-              <SheetHeader className="text-left pb-4 border-b border-white/15">
-                <SheetTitle className="flex items-center">
-                  <span className="font-splash text-xl tracking-wider uppercase text-foreground">Cup o’ Joy</span>
-                </SheetTitle>
-              </SheetHeader>
+          {isMounted ? (
+            <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 border border-white/15 hover:bg-white/10">
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">Toggle Menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[300px] border-l border-white/15 bg-background/95 backdrop-blur-3xl p-6 rounded-l-3xl">
+                <SheetHeader className="text-left pb-4 border-b border-white/15">
+                  <SheetTitle className="flex items-center">
+                    <span className="font-splash text-xl tracking-wider uppercase text-foreground">Cup o’ Joy</span>
+                  </SheetTitle>
+                </SheetHeader>
 
-              <div className="mt-6 flex flex-col gap-3">
-                <motion.div
-                  className="flex flex-col gap-2"
-                  initial="hidden"
-                  animate="visible"
-                  variants={mobileMenuVariants}
-                >
-                  <AnimatePresence>
-                    {isSheetOpen &&
-                      NAV_LINKS.map(link => {
-                        const Icon = getNavIcon(link.iconName);
-                        const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
+                <div className="mt-6 flex flex-col gap-3">
+                  <motion.div
+                    className="flex flex-col gap-2"
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                      hidden: { opacity: 0, y: -10 },
+                      visible: {
+                        opacity: 1,
+                        y: 0,
+                        transition: { staggerChildren: 0.08 },
+                      },
+                    }}
+                  >
+                    <AnimatePresence>
+                      {isSheetOpen &&
+                        NAV_LINKS.map(link => {
+                          const Icon = getNavIcon(link.iconName);
+                          const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
 
-                        return (
-                          <motion.div key={link.href} variants={mobileMenuItemVariants}>
-                            <Link
-                              href={link.href}
-                              onClick={() => setSheetOpen(false)}
-                              className={cn(
-                                'flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all duration-200 text-sm uppercase font-sans font-bold tracking-wider',
-                                isActive
-                                  ? 'bg-primary/20 text-primary font-bold border border-primary/30 shadow-sm'
-                                  : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
-                              )}
+                          return (
+                            <motion.div
+                              key={link.href}
+                              variants={{
+                                hidden: { y: 15, opacity: 0 },
+                                visible: {
+                                  y: 0,
+                                  opacity: 1,
+                                  transition: { type: 'spring', stiffness: 300, damping: 24 },
+                                },
+                              }}
                             >
-                              <Icon strokeWidth={2.5} className={cn('w-5 h-5', isActive ? 'text-primary' : 'text-muted-foreground')} />
-                              <span>{link.label}</span>
-                            </Link>
-                          </motion.div>
-                        );
-                      })}
-                  </AnimatePresence>
-                </motion.div>
-              </div>
-            </SheetContent>
-          </Sheet>
+                              <Link
+                                href={link.href}
+                                onClick={() => setSheetOpen(false)}
+                                className={cn(
+                                  'flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all duration-200 text-sm uppercase font-sans font-bold tracking-wider',
+                                  isActive
+                                    ? 'bg-primary/20 text-primary font-bold border border-primary/30 shadow-sm'
+                                    : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
+                                )}
+                              >
+                                <Icon strokeWidth={2.5} className={cn('w-5 h-5', isActive ? 'text-primary' : 'text-muted-foreground')} />
+                                <span>{link.label}</span>
+                              </Link>
+                            </motion.div>
+                          );
+                        })}
+                    </AnimatePresence>
+                  </motion.div>
+                </div>
+              </SheetContent>
+            </Sheet>
+          ) : (
+            <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 border border-white/15 hover:bg-white/10">
+              <Menu className="h-5 w-5" />
+              <span className="sr-only">Toggle Menu</span>
+            </Button>
+          )}
         </div>
       </div>
     </header>
