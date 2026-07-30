@@ -63,8 +63,8 @@ const PagePanel = ({ title, items, specialItemIds, pageNum }: { title: string; i
                 </div>
             </div>
 
-            {/* Page Footer Number */}
-            <div className="pt-3 mt-2 border-t border-white/10 text-center text-[11px] sm:text-xs font-sans text-primary/90 uppercase tracking-widest font-bold shrink-0">
+            {/* Page Footer Number - Visible on Desktop View Only */}
+            <div className="hidden md:block pt-3 mt-2 border-t border-white/10 text-center text-[11px] sm:text-xs font-sans text-primary/90 uppercase tracking-widest font-bold shrink-0">
                 Page {pageNum}
             </div>
         </div>
@@ -296,8 +296,10 @@ export default function MenuPage() {
                         className="absolute inset-2 bg-[#090b0d] rounded-[20px] border border-white/10 p-4 sm:p-5 shadow-2xl h-[calc(100%-16px)] flex flex-col justify-between cursor-grab active:cursor-grabbing touch-pan-y overflow-hidden"
                         style={{ backfaceVisibility: 'hidden' }}
                       >
-                        {/* Top Right Corner Page Curl Accent */}
-                        <div className="absolute top-2.5 right-2.5 w-4 h-4 border-t-2 border-r-2 border-primary/30 rounded-tr-md pointer-events-none"></div>
+                        {/* Top Right Corner Page Number Badge - Mobile Only */}
+                        <div className="absolute top-3 right-3 z-30 flex items-center gap-1 px-3 py-1 rounded-full bg-primary/15 border border-primary/35 text-primary text-[11px] font-sans font-bold uppercase tracking-widest shadow-md select-none pointer-events-none">
+                            <span>PAGE {currentMobilePage.pageNum}</span>
+                        </div>
 
                         <PagePanel
                           title={currentMobilePage.title}

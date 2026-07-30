@@ -112,14 +112,8 @@ export default function GalleryPage() {
       <SmokeEffect />
       <div className="container pt-4 md:pt-6 pb-16 relative z-10">
         <div className="text-center mb-8 md:mb-14 max-w-4xl mx-auto">
-          <div className="flex items-center justify-center min-h-[60px] md:h-auto">
-            {isMobile ? (
-              <h1 className="text-4xl font-bold font-sans tracking-tight text-white py-2">
-                Gallery
-              </h1>
-            ) : (
-              <TextPressureAnimation text="Gallery" minFontSize={72} />
-            )}
+          <div className="flex items-center justify-center h-28 md:h-auto">
+            <TextPressureAnimation text="Gallery" minFontSize={72} />
           </div>
           <p className="mt-3 md:mt-5 text-xl sm:text-2xl md:text-3xl text-muted-foreground meie-script-regular">
             A collection of moments and memories from our cozy cafe.
