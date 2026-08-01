@@ -13,6 +13,7 @@ import { menuImages } from '@/lib/placeholder-images';
 import { motion, AnimatePresence } from 'framer-motion';
 import RotatingText from '@/components/ui/rotating-text';
 import { useNearScreenEnd } from '@/hooks/use-near-screen-end';
+import MobileHeroSwiper from '@/components/mobile-hero-swiper';
 
 const pageVariants = {
   hidden: { opacity: 0 },
@@ -127,66 +128,9 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Mobile Matcha Poster Hero Content - Mobile Only */}
-      <div className="block md:hidden absolute inset-0 z-10 w-full h-full flex flex-col justify-between pt-20 pb-20 px-5 text-white pointer-events-none">
-        
-        {/* Top Header Row */}
-        <div className="flex justify-between items-start pt-2 px-1">
-          <div className="text-[10px] font-sans font-extrabold tracking-wider uppercase text-zinc-300 leading-tight">
-            <p>PREMIUM</p>
-            <p>JAPANESE MATCHA</p>
-          </div>
-          <div className="text-[10px] font-sans font-extrabold tracking-wider uppercase text-zinc-300 text-right leading-tight">
-            <p>NO OTHER.</p>
-            <p>NO ADDITIVES. JUST TEA.</p>
-          </div>
-        </div>
-
-        {/* Center Main Headline */}
-        <div className="text-center my-auto pt-2 pb-1">
-          <div className="flex items-center justify-center gap-1.5 inline-flex">
-            <h1 className="text-6xl sm:text-7xl font-sans font-black tracking-tighter text-white uppercase leading-none">
-              ESCAFE
-            </h1>
-            <span className="bg-[#1b432c] border border-emerald-400/30 text-white font-black text-3xl sm:text-4xl px-2.5 py-0.5 rounded-lg shadow-xl inline-block transform rotate-3">
-              !
-            </span>
-          </div>
-          <p className="text-xs text-zinc-300 font-sans tracking-wide mt-2 font-medium">
-            take one cup of matcha everyday
-          </p>
-        </div>
-
-        {/* Center Matcha Image Section with Bottom Details */}
-        <div className="relative w-full flex flex-col items-center justify-end pb-4">
-          <motion.div 
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-            className="relative w-64 h-64 sm:w-80 sm:h-80 flex items-center justify-center my-2"
-          >
-            <Image
-              src="/matcha.png"
-              alt="Premium Japanese Matcha"
-              width={380}
-              height={380}
-              className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)]"
-              priority
-            />
-          </motion.div>
-
-          {/* Bottom Left & Right Overlay Badges */}
-          <div className="w-full flex justify-between items-end text-[10px] font-sans font-bold tracking-widest uppercase text-zinc-300 pt-2 px-1">
-            <div className="leading-tight text-left">
-              <p>KYOTO JAPAN</p>
-              <p>PERFECT MATCHA</p>
-            </div>
-            <div className="leading-tight text-right">
-              <p>KEEP IN A COOL, DRY PLACE</p>
-              <p>HOLD IT TIGHTLY</p>
-            </div>
-          </div>
-        </div>
+      {/* Mobile Auto-Swiping Hero Box Banner - Mobile Only */}
+      <div className="block md:hidden absolute inset-0 z-10 w-full h-full flex flex-col items-center justify-center">
+        <MobileHeroSwiper />
       </div>
 
       
