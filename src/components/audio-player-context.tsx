@@ -4,14 +4,61 @@ import React, { createContext, useContext, useEffect, useRef, useState } from 'r
 
 interface AudioContextType {
   isPlaying: boolean;
+  togglePlayPause: () => void;
+  play: () => void;
+  pause: () => void;
+  currentTime: number;
+  duration: number;
+  seek: (timeSeconds: number) => void;
 }
 
 const AudioContext = createContext<AudioContextType | undefined>(undefined);
 
 export function AudioProvider({ children }: { children: React.ReactNode }) {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [duration, setDuration] = useState<number>(183);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const userInteractedRef = useRef<boolean>(false);
+  const userPausedRef = useRef<boolean>(false);
+
+  const play = () => {
+    if (!audioRef.current) return;
+    userPausedRef.current = false;
+    audioRef.current.muted = false;
+    audioRef.current.volume = 0.35;
+    const playPromise = audioRef.current.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          setIsPlaying(true);
+          userInteractedRef.current = true;
+        })
+        .catch(() => {});
+    }
+  };
+
+  const pause = () => {
+    if (!audioRef.current) return;
+    userPausedRef.current = true;
+    audioRef.current.pause();
+    setIsPlaying(false);
+  };
+
+  const togglePlayPause = () => {
+    if (isPlaying) {
+      pause();
+    } else {
+      play();
+    }
+  };
+
+  const seek = (timeSeconds: number) => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = timeSeconds;
+      setCurrentTime(timeSeconds);
+    }
+  };
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -20,20 +67,26 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     const audio = new Audio('/audio/hitslab-bossa-nova-bossa-nova-cafe-music-457829.mp3');
     audio.loop = true;
     audio.preload = 'auto';
-    audio.volume = 0.35; // Pleasant, audible background volume
+    audio.volume = 0.35;
     audio.playbackRate = 0.92;
     audioRef.current = audio;
 
-    // Start audio muted immediately (100% browser compliant, bypasses browser autoplay block)
-    const startMutedPlayback = () => {
-      if (!audioRef.current) return;
-      audioRef.current.muted = true;
-      audioRef.current.play().catch(() => {});
+    const handleTimeUpdate = () => {
+      if (audioRef.current) {
+        setCurrentTime(audioRef.current.currentTime);
+        if (audioRef.current.duration && !isNaN(audioRef.current.duration)) {
+          setDuration(audioRef.current.duration);
+        }
+      }
     };
+
+    audio.addEventListener('timeupdate', handleTimeUpdate);
+    audio.addEventListener('loadedmetadata', handleTimeUpdate);
 
     const unmuteAndPlay = () => {
       if (!audioRef.current) return;
       if (document.hidden || document.visibilityState === 'hidden') return;
+      if (userPausedRef.current) return;
 
       audioRef.current.muted = false;
       audioRef.current.volume = 0.35;
@@ -46,7 +99,11 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
             userInteractedRef.current = true;
           })
           .catch(() => {
-            // Will play on user scroll or interaction
+            // Muted fallback if browser strict policy blocks unmuted autoplay until first touch/scroll
+            if (audioRef.current && !userPausedRef.current) {
+              audioRef.current.muted = true;
+              audioRef.current.play().catch(() => {});
+            }
           });
       }
     };
@@ -58,15 +115,12 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       }
     };
 
-    // Initialize playback muted on mount
-    startMutedPlayback();
-    if (!document.hidden) {
-      unmuteAndPlay();
-    }
+    // Attempt playback immediately on website load
+    unmuteAndPlay();
 
-    // Unmute and play music on ANY scroll, wheel, mousemove, or gesture in desktop & mobile
+    // Start playing on scroll/gesture UNLESS user explicitly paused
     const handleUserInteraction = () => {
-      if (!document.hidden && document.visibilityState === 'visible') {
+      if (!document.hidden && document.visibilityState === 'visible' && !userPausedRef.current) {
         unmuteAndPlay();
       }
     };
@@ -88,11 +142,10 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       document.addEventListener(evt, handleUserInteraction, { passive: true });
     });
 
-    // Pause audio when switching tabs, leaving browser, minimizing window, or locking mobile screen
     const handleVisibilityChange = () => {
       if (document.hidden || document.visibilityState === 'hidden') {
         pauseAudio();
-      } else if (userInteractedRef.current) {
+      } else if (!userPausedRef.current) {
         unmuteAndPlay();
       }
     };
@@ -102,7 +155,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     };
 
     const handleFocus = () => {
-      if (!document.hidden && document.visibilityState === 'visible' && userInteractedRef.current) {
+      if (!document.hidden && document.visibilityState === 'visible' && !userPausedRef.current) {
         unmuteAndPlay();
       }
     };
@@ -117,6 +170,8 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         window.removeEventListener(evt, handleUserInteraction);
         document.removeEventListener(evt, handleUserInteraction);
       });
+      audio.removeEventListener('timeupdate', handleTimeUpdate);
+      audio.removeEventListener('loadedmetadata', handleTimeUpdate);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('blur', handleBlur);
       window.removeEventListener('focus', handleFocus);
@@ -130,7 +185,17 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <AudioContext.Provider value={{ isPlaying }}>
+    <AudioContext.Provider
+      value={{
+        isPlaying,
+        togglePlayPause,
+        play,
+        pause,
+        currentTime,
+        duration,
+        seek,
+      }}
+    >
       {children}
     </AudioContext.Provider>
   );

@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import ClickRippleEffect from '@/components/ui/click-ripple-effect';
 import { cn } from '@/lib/utils';
 import { AudioProvider, AudioPromptBanner } from '@/components/audio-player-context';
+import AudioPlayerWidget from '@/components/audio-player-widget';
 
 const urbanist = Urbanist({ subsets: ['latin'], variable: '--font-urbanist' })
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
@@ -111,6 +112,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
         <Toaster />
         <ClickRippleEffect />
         <AudioPromptBanner />
+        <AudioPlayerWidget />
       </body>
     </>
   );

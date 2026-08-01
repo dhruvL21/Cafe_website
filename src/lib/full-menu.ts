@@ -81,6 +81,14 @@ export interface MenuItem {
       imageId: 'iced-latte',
     },
     {
+      id: 'coffee11',
+      category: 'Coffee',
+      name: 'matcha latte',
+      description: 'Ceremonial grade Japanese green tea whisked with silky steamed milk.',
+      price: 165,
+      imageId: 'matcha-latte',
+    },
+    {
       id: 'pasta1',
       category: 'Pasta',
       name: 'spaghetti carbonara',

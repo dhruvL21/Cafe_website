@@ -268,7 +268,7 @@ export default function SpecialsPage() {
             >
               {menuByCategory.length > 0 ? menuByCategory.map(({ category, items }) => (
                 <div key={category}>
-                  {(activeCategory === 'All' || (activeCategory !== 'All' && searchQuery === '')) && <CategoryHeader title={category} />}
+                  {((activeCategory as string) === 'All' || searchQuery === '') && <CategoryHeader title={category} />}
                   {items.map((item, index) => (
                     <MenuItem key={item.id} item={item} index={index} />
                   ))}

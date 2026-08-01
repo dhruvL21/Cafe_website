@@ -24,43 +24,41 @@ const CoffeeBeansIcon = ({ className }: { className?: string }) => (
 
 const MenuItem = ({ name, description, price, isSpecial }: { name: string, description: string, price: string, isSpecial: boolean }) => {
     return (
-        <div className="bg-transparent mb-5 last:mb-0">
+        <div className="bg-transparent mb-3.5 sm:mb-5 last:mb-0">
             <div className="flex justify-between items-baseline gap-2">
-                <h3 className="text-base sm:text-lg font-poiret-one tracking-wider text-foreground uppercase flex items-center gap-2 font-bold">
+                <h3 className="text-sm sm:text-lg font-poiret-one tracking-wider text-foreground uppercase flex items-center gap-2 font-bold">
                     <span>{name}</span>
                     {isSpecial && <Sparkles className="size-3.5 text-primary shrink-0" />}
                 </h3>
                 <div className="flex-grow border-b border-dotted border-border/50"></div>
-                <span className="text-base sm:text-lg font-sans font-extrabold text-primary">{price}</span>
+                <span className="text-sm sm:text-lg font-sans font-extrabold text-primary shrink-0">{price}</span>
             </div>
-            <p className="text-muted-foreground text-xs mt-1 leading-relaxed">{description}</p>
+            <p className="text-muted-foreground text-xs mt-0.5 sm:mt-1 leading-relaxed">{description}</p>
         </div>
     );
 };
 
 const PagePanel = ({ title, items, specialItemIds, pageNum }: { title: string; items: MenuItemType[]; specialItemIds: string[]; pageNum: number }) => {
     return (
-        <div className="w-full h-full flex flex-col justify-between p-1 sm:p-2 overflow-hidden">
-            <div className="overflow-y-auto flex-1 pr-1 custom-scrollbar space-y-3 sm:space-y-4">
-                {/* Signature Cafe Name Logo at Top of Book Page */}
-                <div className="text-center pt-1 md:pt-2 mb-3 md:mb-4">
-                    <h1 className="font-splash text-xl sm:text-2xl md:text-3xl text-primary drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] leading-normal py-1 mb-1 md:mb-2">Cup o' Joy</h1>
-                    <h2 className="text-lg sm:text-2xl font-limelight tracking-wider text-foreground uppercase mt-1 md:mt-2">{title}</h2>
-                    <div className="w-12 h-0.5 bg-primary/40 mx-auto mt-2 md:mt-3 rounded-full"></div>
-                </div>
+        <div className="w-full flex flex-col justify-start p-1 sm:p-2">
+            {/* Signature Cafe Name Logo at Top of Book Page - Fixed Header */}
+            <div className="text-center pt-5 sm:pt-2 md:pt-2 mb-2 sm:mb-3 md:mb-4 shrink-0">
+                <h1 className="font-splash text-xl sm:text-2xl md:text-3xl text-primary drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] leading-relaxed py-0.5 mb-0.5 md:mb-2">Cup o' Joy</h1>
+                <h2 className="text-base sm:text-xl md:text-2xl font-limelight tracking-wider text-foreground uppercase mt-0.5 md:mt-2">{title}</h2>
+                <div className="w-12 h-0.5 bg-primary/40 mx-auto mt-1.5 md:mt-3 rounded-full"></div>
+            </div>
 
-                {/* Menu Items List */}
-                <div className="space-y-3 sm:space-y-4">
-                    {items.map((item) => (
-                        <MenuItem
-                            key={item.id}
-                            name={item.name}
-                            description={item.description}
-                            price={`₹${item.price}`}
-                            isSpecial={specialItemIds.includes(item.id)}
-                        />
-                    ))}
-                </div>
+            {/* Menu Items List */}
+            <div className="space-y-3 sm:space-y-4 pt-1">
+                {items.map((item) => (
+                    <MenuItem
+                        key={item.id}
+                        name={item.name}
+                        description={item.description}
+                        price={`₹${item.price}`}
+                        isSpecial={specialItemIds.includes(item.id)}
+                    />
+                ))}
             </div>
 
             {/* Page Footer Number - Visible on Desktop View Only */}
@@ -73,7 +71,7 @@ const PagePanel = ({ title, items, specialItemIds, pageNum }: { title: string; i
 
 export default function MenuPage() {
     const specialItemIds = [
-      'coffee1', 'coffee2', 'coffee3', 'coffee4', 'coffee5', 'coffee6', 'coffee7', 'coffee8', 'coffee9',
+      'coffee1', 'coffee2', 'coffee3', 'coffee4', 'coffee5', 'coffee6', 'coffee7', 'coffee8', 'coffee9', 'coffee11',
       'pasta1', 'pasta2', 'pasta3',
       'pizza1', 'pizza2', 'pizza3',
       'dessert1', 'dessert2', 'dessert3'
@@ -267,8 +265,8 @@ export default function MenuPage() {
                   </div>
 
                   {/* Outer Hardcover Binder Frame */}
-                  <div className="relative bg-[#090b0d] border-2 border-white/15 rounded-[28px] p-2.5 shadow-[0_25px_60px_rgba(0,0,0,0.95)] h-[660px] sm:h-[720px] overflow-hidden [perspective:1200px]">
-                    <AnimatePresence initial={false} custom={mobileSwipeDir}>
+                  <div className="relative bg-[#090b0d] border-2 border-white/15 rounded-[28px] p-2.5 shadow-[0_25px_60px_rgba(0,0,0,0.95)] overflow-hidden [perspective:1200px]">
+                    <AnimatePresence mode="wait" initial={false} custom={mobileSwipeDir}>
                       <motion.div
                         key={mobilePageIndex}
                         custom={mobileSwipeDir}
@@ -293,7 +291,7 @@ export default function MenuPage() {
                             }
                           }
                         }}
-                        className="absolute inset-2 bg-[#090b0d] rounded-[20px] border border-white/10 p-4 sm:p-5 shadow-2xl h-[calc(100%-16px)] flex flex-col justify-between cursor-grab active:cursor-grabbing touch-pan-y overflow-hidden"
+                        className="relative w-full bg-[#090b0d] rounded-[20px] border border-white/10 p-4 sm:p-5 shadow-2xl flex flex-col justify-start cursor-grab active:cursor-grabbing touch-pan-y overflow-hidden"
                         style={{ backfaceVisibility: 'hidden' }}
                       >
                         {/* Top Right Corner Page Number Badge - Mobile Only */}
