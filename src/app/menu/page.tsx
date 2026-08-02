@@ -190,23 +190,23 @@ export default function MenuPage() {
     };
 
     return (
-        <div className="bg-[#090b0d] text-foreground min-h-screen py-20 md:py-24 overflow-x-hidden">
+        <div className="bg-[#090b0d] text-foreground min-h-screen pt-14 pb-16 sm:pt-20 md:py-24 overflow-x-hidden">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl xl:max-w-7xl">
                 
                 {/* Header Title & Beans Icon */}
                 <motion.div
-                    className="text-center mb-6"
-                    initial={{ opacity: 0, y: -20 }}
+                    className="text-center mb-4 md:mb-6"
+                    initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                 >
-                    <p className="text-muted-foreground text-2xl md:text-3xl meie-script-regular">
+                    <p className="text-muted-foreground text-xl sm:text-2xl md:text-3xl meie-script-regular px-2">
                         Handcrafted with passion, from our kitchen to your table.
                     </p>
-                    <div className="flex justify-center my-3">
-                        <div className="w-20 h-px bg-primary/50"></div>
-                        <CoffeeBeansIcon className="h-6 w-9 text-primary/80 mx-4" />
-                        <div className="w-20 h-px bg-primary/50"></div>
+                    <div className="flex justify-center my-2.5 sm:my-3">
+                        <div className="w-16 sm:w-20 h-px bg-primary/50"></div>
+                        <CoffeeBeansIcon className="h-5 w-8 sm:h-6 sm:w-9 text-primary/80 mx-3 sm:mx-4" />
+                        <div className="w-16 sm:w-20 h-px bg-primary/50"></div>
                     </div>
                 </motion.div>
 
