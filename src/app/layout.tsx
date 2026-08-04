@@ -82,7 +82,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
       <head>
         <title>Cup o&apos; Joy: Immersive Cafe Experience</title>
         <meta name="description" content="An aesthetic and immersive website for the Cup o' Joy cafe." />
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2212%22 fill=%22hsl(210 20% 90%)%22 /><text x=%2250%22 y=%2250%22 text-anchor=%22middle%22 dominant-baseline=%22central%22 font-family=%22Urbanist, sans-serif%22 font-size=%2275%22 font-weight=%22bold%22 fill=%22hsl(0 0% 0%)%22>C</text></svg>" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Bonheur+Royale&family=Meie+Script&family=Sirivennela&display=swap" rel="stylesheet" />
